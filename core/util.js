@@ -153,11 +153,21 @@ var util = {
   gekkoEnv: function() {
     return _gekkoEnv || 'standalone';
   },
-  launchUI: function() {
-    if(program['ui'])
+  shouldLaunchUI: function() {
+    if(program['ui'] || program['uiDebug']) {
       return true;
-    else
+    }
+    else {
       return false;
+    }
+  },
+  launchUI: function() {
+    if (program['ui']) {
+      require(util.dirs().web + 'server')({ debug: false })
+    }
+    else if (program['uiDebug']) {
+      require(util.dirs().web + 'server')({ debug: true })
+    }
   },
   getStartTime: function() {
     return startTime;
@@ -190,6 +200,7 @@ program
   .option('-b, --backtest', 'backtesting mode')
   .option('-i, --import', 'importer mode')
   .option('--ui', 'launch a web UI')
+  .option('--ui-debug', 'launch a web UI (debug mode)')
   .parse(process.argv);
 
 // make sure the current node version is recent enough
@@ -198,7 +209,7 @@ if(!util.recentNode())
     'Your local version of Node.js is too old. ',
     'You have ',
     process.version,
-    ' and you need atleast ',
+    ' and you need at least ',
     util.getRequiredNodeVersion()
   ].join(''), true);
 
