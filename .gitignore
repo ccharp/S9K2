@@ -1,3 +1,7 @@
 node_modules/**
 web/vue/node_modules/**
 SECRET-api-keys.json
+.DS_store
+.cache
+.project
+.settings
