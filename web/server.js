@@ -89,8 +89,6 @@ createGekkoServer = function(options) {
       var location = `http://${host}`;
     }
     console.log('Serving Gekko UI on ' + location + '\n');
-    console.log(process.debugPort)
-
 
     // only open a browser when running `node gekko`
     // this prevents opening the browser during development
