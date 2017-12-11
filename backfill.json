@@ -1,0 +1,72 @@
+{
+    "mode": "importer",
+    "watch": {
+        "exchange": "kraken",
+        "currency": "USD",
+        "asset": "ETH"
+    },
+    "silent": false,
+    "debug": true,
+    "trader": {
+        "enabled": false
+    },
+    "backtest": {
+        "daterange": "scan",
+        "batchSize": 50
+    },
+    "importer": {
+        "daterange": {
+            "from": "2017-12-01 12:00:00 UTC"
+        }
+    },
+    "type": "market watcher",
+    "tradingAdvisor": {
+        "talib": {
+            "enabled": false,
+            "version": "1.0.2"
+        },
+        "tulind": {
+            "enabled": false,
+            "version": "0.8.7"
+        }
+    },
+    "candleWriter": {
+        "enabled": true,
+        "adapter": "sqlite"
+    },
+    "adviceWriter": {
+        "enabled": false,
+        "muteSoft": true
+    },
+    "adapter": "sqlite",
+    "sqlite": {
+        "path": "plugins/sqlite",
+        "version": 0.1,
+        "dataDirectory": "history",
+        "journalMode": "WAL",
+        "dependencies": [{
+            "module": "sqlite3",
+            "version": "3.1.4"
+        }]
+    },
+    "postgresql": {
+        "path": "plugins/postgresql",
+        "version": 0.1,
+        "connectionString": "postgres://user:pass@localhost:5432",
+        "database": null,
+        "schema": "public",
+        "dependencies": [{
+            "module": "pg",
+            "version": "6.1.0"
+        }]
+    },
+    "mongodb": {
+        "path": "plugins/mongodb",
+        "version": 0.1,
+        "connectionString": "mongodb://mongodb/gekko",
+        "dependencies": [{
+            "module": "mongojs",
+            "version": "2.4.0"
+        }]
+    }
+}

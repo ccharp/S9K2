@@ -42,6 +42,13 @@ var Fetcher = function(config) {
       this.firstSince = moment.unix(this.firstSince).utc();
     }
   }
+  else if (!!config.importer && !!config.importer.daterange && !!config.importer.daterange.from) {
+    this.firstSince = config.importer.daterange.from;
+
+    if (this.exchange.providesHistory === 'date') {
+      this.firstSince = moment(this.firstSince).utc();
+    }
+  }
 
   this.batcher = new TradeBatcher(this.exchange.tid);
 

@@ -12,6 +12,17 @@
             "args": [
                 "--ui-debug"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Importer Debug",
+            "program": "${workspaceFolder}/gekko.js",
+            "args": [
+                "--import",
+                "--config",
+                "watch.json"
+            ]
         }
     ]
 }
