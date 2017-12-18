@@ -5,3 +5,4 @@ SECRET-api-keys.json
 .cache
 .project
 .settings
+jupyter/.ipynb_checkpoints/**
