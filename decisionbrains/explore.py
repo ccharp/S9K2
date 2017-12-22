@@ -1,66 +1,35 @@
-# coding: utf-8
-# In[0]: Load data from SQLite
-
-import sqlite3
-import pandas as pd
-import numpy as np
-import datetime
-import matplotlib.pyplot as plt
+# In[0]: Set up environment.
 import os
+import candles
+import matplotlib.pyplot as plt
+
+figure_size = (10, 6) # Width, height of plots
 
 cwd = os.getcwd()
 history_path = os.path.abspath(os.path.join(cwd, '..', 'history'))
-# Grab the data from the DB. Paths with ~ will break this.
-dbAbsolutePath = os.path.join(history_path, 'gdax_0.1.db')
-conn = sqlite3.connect(dbAbsolutePath)
-query = 'select * from candles_USD_BTC'
-minutely_candles = pd.read_sql_query(query, conn)
+db_path = os.path.join(history_path, 'gdax_0.1.db')
 
-minutely_candles.dropna()
+# In[0]: Load minutely candles.
+
+minutely_candles = candles.load_minutely_candles(db_path)
+minutely_candles = candles.add_bollinger_bands(minutely_candles, 120)
 print(minutely_candles.head())
 
-# In[0]: Add some features
-minutely_candles['timestamp'] = minutely_candles['start'].apply(lambda ts: datetime.datetime.fromtimestamp(ts))
-#minutely_candles['timestamp_str'] = minutely_candles['timestamp'].apply(lambda dt: dt.strftime('%Y-%m-%d %H:%M:%S'))
-minutely_candles['totalMillions'] = (minutely_candles['vwp'] * minutely_candles['trades']) / 1000000
-minutely_candles = minutely_candles.drop(['id', 'start'], axis=1)
-minutely_candles.sort_values('timestamp', inplace=True)
-print(minutely_candles.head())
+# In[0]: Turn minutely candles into hourly candles.
 
-# In[0]: Add features to minute granularity data
+hourly_candles = candles.agg_to_hourly(minutely_candles)
+hourly_candles = candles.add_bollinger_bands(hourly_candles, 48)
+print(hourly_candles.head())
 
-# Add rolling mean and rolling volatility
-rolling_mean = minutely_candles['close'].rolling(60).mean()
-rolling_volatility = minutely_candles['close'].rolling(60).std()
-minutely_candles['rolling_mean'] = rolling_mean
-minutely_candles['rolling_volatility'] = rolling_volatility
+# In[0]: Turn hourly candles into daily candles.
 
-# Add top & bottom Bollinger bands
-minutely_candles['bollinger_top'] = rolling_mean + 2*rolling_volatility
-minutely_candles['bollinger_bottom'] = rolling_mean - 2*rolling_volatility
+daily_candles = candles.agg_to_daily(hourly_candles)
+daily_candles = candles.add_bollinger_bands(daily_candles, 3)
+print(daily_candles.head())
 
-# Mark places where closing price trend crosses the top Bollinger band
-# from above to below. That is, previous hour above top band, current
-# price below top band.
-above_bollinger_top = minutely_candles['close'] >= minutely_candles['bollinger_top']
-below_bollinger_top = minutely_candles['close'] < minutely_candles['bollinger_top']
-minutely_candles['cross_bollinger_top'] = above_bollinger_top.shift() * below_bollinger_top
+# In[0]: Plot minutely closing price with Bollinger bands over time
 
-# Mark places where closing price trend crosses the bottom Bollinger band
-# from above to below. That is, previous hour below bottom band, current
-# price above bottom band.
-above_bollinger_bottom = minutely_candles['close'] >= minutely_candles['bollinger_bottom']
-below_bollinger_bottom = minutely_candles['close'] < minutely_candles['bollinger_bottom']
-minutely_candles['cross_bollinger_bottom'] = below_bollinger_bottom.shift() * above_bollinger_bottom
-
-# Drop NAs caused by calculation of rolling statistics
-minutely_candles.dropna(inplace=True)
-
-print(minutely_candles.head())
-
-# In[0]: Plot closing price with Bollinger bands over time
-
-fig=plt.figure(figsize=(12, 6), dpi=80, facecolor='w', edgecolor='k')
+fig=plt.figure(figsize=figure_size, dpi=80, facecolor='w', edgecolor='k')
 fig.suptitle(' Closing Price \\w Bollinger Bands\nUSD to BTC (minutely)', fontsize=20)
 plt.xlabel('Time', fontsize=18)
 plt.ylabel('Closing Price', fontsize=16)
@@ -76,64 +45,20 @@ plt.plot(bollinger_sell['timestamp'], bollinger_sell['close'], 'go', label='Advi
 plt.legend()
 plt.show()
 
-# In[0]: Plot number of trades over time.
+# In[0]: Plot minutely number of trades over time.
 
-fig=plt.figure(figsize=(12, 6), dpi= 80, facecolor='w', edgecolor='k')
-plt.suptitle('Number of Trades\nUSD to BTC (hourly)', fontsize=20)
+fig=plt.figure(figsize=figure_size, dpi= 80, facecolor='w', edgecolor='k')
+plt.suptitle('Number of Trades\nUSD to BTC (minutely)', fontsize=20)
 plt.xlabel('Time', fontsize=18)
 plt.ylabel('Number of Trades', fontsize=16)
 plt.plot(minutely_data['timestamp'], minutely_data['trades'], 'black', label='Total Number Trades')
-plt.plot(minutely_data['timestamp'], minutely_data['trades'].rolling(60).mean(), 'blue', label='Rolling Mean')
+plt.plot(minutely_data['timestamp'], minutely_data['trades'].rolling(60).mean(), 'red', label='Rolling Mean')
 plt.legend()
 plt.show()
 
-# In[0]: Aggregate to hourly level
-hourly_candles = minutely_candles.copy()
-# Truncate timestamp to hour
-hourly_candles['timestamp'] = hourly_candles['timestamp'].transform(lambda ts: ts.replace(microsecond=0,second=0,minute=0))
-#minutely_candles['timestamp_str'] = hourly_candles['timestamp'].apply(lambda dt: dt.strftime('%Y-%m-%d %H:%M:%S'))
-# TODO: Open/Close aggregation
-hourly_candles = hourly_candles.groupby('timestamp', as_index=False).agg({'high': max,
-                                                                          'low': min,
-                                                                          'open': lambda x: x.iloc[0],
-                                                                          'close': lambda x: x.iloc[-1],
-                                                                          'volume': sum,
-                                                                          'trades': sum})
+# In[0]: Plot hourly closing price with Bollinger bands over time
 
-# In[0]: Add features to hourly granularity data
-
-# Add rolling mean and rolling volatility
-rolling_mean = hourly_candles['close'].rolling(24).mean()
-rolling_volatility = hourly_candles['close'].rolling(24).std()
-hourly_candles['rolling_mean'] = rolling_mean
-hourly_candles['rolling_volatility'] = rolling_volatility
-
-# Add top & bottom Bollinger bands
-hourly_candles['bollinger_top'] = rolling_mean + 2*rolling_volatility
-hourly_candles['bollinger_bottom'] = rolling_mean - 2*rolling_volatility
-
-# Mark places where closing price trend crosses the top Bollinger band
-# from above to below. That is, previous hour above top band, current
-# price below top band.
-above_bollinger_top = hourly_candles['close'] >= hourly_candles['bollinger_top']
-below_bollinger_top = hourly_candles['close'] < hourly_candles['bollinger_top']
-hourly_candles['cross_bollinger_top'] = above_bollinger_top.shift() * below_bollinger_top
-
-# Mark places where closing price trend crosses the bottom Bollinger band
-# from above to below. That is, previous hour below bottom band, current
-# price above bottom band.
-above_bollinger_bottom = hourly_candles['close'] >= hourly_candles['bollinger_bottom']
-below_bollinger_bottom = hourly_candles['close'] < hourly_candles['bollinger_bottom']
-hourly_candles['cross_bollinger_bottom'] = below_bollinger_bottom.shift() * above_bollinger_bottom
-
-# Drop NAs caused by calculation of rolling statistics
-hourly_candles.dropna(inplace=True)
-
-print(hourly_candles.head())
-
-# In[0]: Plot closing price with Bollinger bands over time
-
-fig=plt.figure(figsize=(12, 6), dpi=80, facecolor='w', edgecolor='k')
+fig=plt.figure(figsize=figure_size, dpi=80, facecolor='w', edgecolor='k')
 fig.suptitle(' Closing Price \\w Bollinger Bands\nUSD to BTC (hourly)', fontsize=20)
 plt.xlabel('Time', fontsize=18)
 plt.ylabel('Closing Price', fontsize=16)
@@ -148,9 +73,9 @@ plt.plot(bollinger_sell['timestamp'], bollinger_sell['close'], 'go', label='Advi
 plt.legend()
 plt.show()
 
-# In[0]: Plot number of trades over time.
+# In[0]: Plot hourly number of trades over time.
 
-fig=plt.figure(figsize=(12, 6), dpi= 80, facecolor='w', edgecolor='k')
+fig=plt.figure(figsize=figure_size, dpi= 80, facecolor='w', edgecolor='k')
 plt.suptitle('Number of Trades\nUSD to BTC (hourly)', fontsize=20)
 plt.xlabel('Time', fontsize=18)
 plt.ylabel('Number of Trades', fontsize=16)
@@ -159,54 +84,9 @@ plt.plot(hourly_candles['timestamp'], hourly_candles['trades'].rolling(24).mean(
 plt.legend()
 plt.show()
 
-# In[0]: Aggregate to daily level
-daily_candles = hourly_candles.copy()
-# Truncate timestamp to hour
-daily_candles['timestamp'] = daily_candles['timestamp'].transform(lambda ts: ts.replace(hour=0))
-#minutely_candles['timestamp_str'] = hourly_candles['timestamp'].apply(lambda dt: dt.strftime('%Y-%m-%d %H:%M:%S'))
-# TODO: Open/Close aggregation
-daily_candles = daily_candles.groupby('timestamp', as_index=False).agg({'high': max,
-                                                                         'low': min,
-                                                                         'open': lambda x: x.iloc[0],
-                                                                         'close': lambda x: x.iloc[-1],
-                                                                         'volume': sum,
-                                                                         'trades': sum})
+# In[0]: Plot daily closing price with Bollinger bands over time
 
-print(daily_candles.head())
-# In[0]: Add features to daily granularity data
-
-# Add rolling mean and rolling volatility
-rolling_mean = daily_candles['close'].rolling(3).mean()
-rolling_volatility = daily_candles['close'].rolling(3).std()
-daily_candles['rolling_mean'] = rolling_mean
-daily_candles['rolling_volatility'] = rolling_volatility
-
-# Add top & bottom Bollinger bands
-daily_candles['bollinger_top'] = rolling_mean + 2*rolling_volatility
-daily_candles['bollinger_bottom'] = rolling_mean - 2*rolling_volatility
-
-# Mark places where closing price trend crosses the top Bollinger band
-# from above to below. That is, previous hour above top band, current
-# price below top band.
-above_bollinger_top = daily_candles['close'] >= daily_candles['bollinger_top']
-below_bollinger_top = daily_candles['close'] < daily_candles['bollinger_top']
-daily_candles['cross_bollinger_top'] = above_bollinger_top.shift() * below_bollinger_top
-
-# Mark places where closing price trend crosses the bottom Bollinger band
-# from above to below. That is, previous hour below bottom band, current
-# price above bottom band.
-above_bollinger_bottom = daily_candles['close'] >= daily_candles['bollinger_bottom']
-below_bollinger_bottom = daily_candles['close'] < daily_candles['bollinger_bottom']
-daily_candles['cross_bollinger_bottom'] = below_bollinger_bottom.shift() * above_bollinger_bottom
-
-# Drop NAs caused by calculation of rolling statistics
-daily_candles.dropna(inplace=True)
-
-print(daily_candles.head())
-
-# In[0]: Plot closing price with Bollinger bands over time
-
-fig=plt.figure(figsize=(12, 6), dpi=80, facecolor='w', edgecolor='k')
+fig=plt.figure(figsize=figure_size, dpi=80, facecolor='w', edgecolor='k')
 fig.suptitle(' Closing Price \\w Bollinger Bands\nUSD to BTC (daily)', fontsize=20)
 plt.xlabel('Time', fontsize=18)
 plt.ylabel('Closing Price', fontsize=16)
@@ -221,9 +101,9 @@ plt.plot(bollinger_sell['timestamp'], bollinger_sell['close'], 'go', label='Advi
 plt.legend()
 plt.show()
 
-# In[0]: Plot number of trades over time.
+# In[0]: Plot daily number of trades over time.
 
-fig=plt.figure(figsize=(12, 6), dpi=80, facecolor='w', edgecolor='k')
+fig = plt.figure(figsize=figure_size, dpi=80, facecolor='w', edgecolor='k')
 plt.suptitle('Number of Trades\nUSD to BTC (daily)', fontsize=20)
 plt.xlabel('Time', fontsize=18)
 plt.ylabel('Number of Trades', fontsize=16)
