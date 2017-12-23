@@ -2,6 +2,10 @@
 import os
 import candles
 import matplotlib.pyplot as plt
+from plydata import query
+from plotnine import ggplot, geom_line, geom_point, aes, theme, element_text, ggtitle
+from datetime import datetime, timedelta
+
 
 figure_size = (10, 6) # Width, height of plots
 
@@ -29,85 +33,71 @@ print(daily_candles.head())
 
 # In[0]: Plot minutely closing price with Bollinger bands over time
 
-fig=plt.figure(figsize=figure_size, dpi=80, facecolor='w', edgecolor='k')
-fig.suptitle(' Closing Price \\w Bollinger Bands\nUSD to BTC (minutely)', fontsize=20)
-plt.xlabel('Time', fontsize=18)
-plt.ylabel('Closing Price', fontsize=16)
-minutely_data = minutely_candles[minutely_candles['timestamp'] > '2017-12-19']
-plt.plot(minutely_data['timestamp'], minutely_data['close'], 'black', label='Closing Price')
-plt.plot(minutely_data['timestamp'], minutely_data['rolling_mean'], 'gray', label='Rolling Mean')
-plt.plot(minutely_data['timestamp'], minutely_data['bollinger_top'], 'blue', label='Bollinger Bands')
-plt.plot(minutely_data['timestamp'], minutely_data['bollinger_bottom'], 'blue', label='')
-bollinger_buy = minutely_data[minutely_data['cross_bollinger_bottom'] == True]
-plt.plot(bollinger_buy['timestamp'], bollinger_buy['close'], 'ro', label='Advise Buy')
-bollinger_sell = minutely_data[minutely_data['cross_bollinger_top'] == True]
-plt.plot(bollinger_sell['timestamp'], bollinger_sell['close'], 'go', label='Advise Sell')
-plt.legend()
-plt.show()
+ago_24hrs = datetime.now() - timedelta(hours=24)
+minutely_last24hrs = minutely_candles[minutely_candles.timestamp >= ago_24hrs]
+bollinger_buy = minutely_last24hrs[minutely_last24hrs['cross_bollinger_bottom'] == True]
+bollinger_sell = minutely_last24hrs[minutely_last24hrs['cross_bollinger_top'] == True]
+(ggplot(data=None) +
+     geom_line(aes('timestamp', 'close'), data=minutely_last24hrs, color='black') +
+     geom_line(aes('timestamp', 'rolling_mean'), data=minutely_last24hrs, color='grey') +
+     geom_line(aes('timestamp', 'bollinger_top'), data=minutely_last24hrs, color='blue') +
+     geom_line(aes('timestamp', 'bollinger_bottom'), data=minutely_last24hrs, color='blue') +
+     geom_point(aes('timestamp', 'close'), data=bollinger_buy, color='green') +
+     geom_point(aes('timestamp', 'close'), data=bollinger_sell, color='red') +
+     theme(axis_text_x=element_text(rotation=45)) +
+     ggtitle('Closing Price \\w Bollinger Bands\nUSD to BTC (minutely)')
+)
 
 # In[0]: Plot minutely number of trades over time.
 
-fig=plt.figure(figsize=figure_size, dpi= 80, facecolor='w', edgecolor='k')
-plt.suptitle('Number of Trades\nUSD to BTC (minutely)', fontsize=20)
-plt.xlabel('Time', fontsize=18)
-plt.ylabel('Number of Trades', fontsize=16)
-plt.plot(minutely_data['timestamp'], minutely_data['trades'], 'black', label='Total Number Trades')
-plt.plot(minutely_data['timestamp'], minutely_data['trades'].rolling(60).mean(), 'red', label='Rolling Mean')
-plt.legend()
-plt.show()
+(ggplot(minutely_last24hrs) +
+     geom_line(aes('timestamp', 'trades'), color='black') +
+     theme(axis_text_x=element_text(rotation=45)) +
+     ggtitle('CNumber of Trades\nUSD to BTC (minutely)')
+)
 
 # In[0]: Plot hourly closing price with Bollinger bands over time
 
-fig=plt.figure(figsize=figure_size, dpi=80, facecolor='w', edgecolor='k')
-fig.suptitle(' Closing Price \\w Bollinger Bands\nUSD to BTC (hourly)', fontsize=20)
-plt.xlabel('Time', fontsize=18)
-plt.ylabel('Closing Price', fontsize=16)
-plt.plot(hourly_candles['timestamp'], hourly_candles['close'], 'black', label='Closing Price')
-plt.plot(hourly_candles['timestamp'], hourly_candles['rolling_mean'], 'gray', label='Rolling Mean')
-plt.plot(hourly_candles['timestamp'], hourly_candles['bollinger_top'], 'blue', label='Bollinger Bands')
-plt.plot(hourly_candles['timestamp'], hourly_candles['bollinger_bottom'], 'blue', label='')
 bollinger_buy = hourly_candles[hourly_candles['cross_bollinger_bottom'] == True]
-plt.plot(bollinger_buy['timestamp'], bollinger_buy['close'], 'ro', label='Advise Buy')
 bollinger_sell = hourly_candles[hourly_candles['cross_bollinger_top'] == True]
-plt.plot(bollinger_sell['timestamp'], bollinger_sell['close'], 'go', label='Advise Sell')
-plt.legend()
-plt.show()
+(ggplot(data=None) +
+     geom_line(aes('timestamp', 'close'), data=hourly_candles, color='black') +
+     geom_line(aes('timestamp', 'rolling_mean'), data=hourly_candles, color='grey') +
+     geom_line(aes('timestamp', 'bollinger_top'), data=hourly_candles, color='blue') +
+     geom_line(aes('timestamp', 'bollinger_bottom'), data=hourly_candles, color='blue') +
+     geom_point(aes('timestamp', 'close'), data=bollinger_buy, color='green') +
+     geom_point(aes('timestamp', 'close'), data=bollinger_sell, color='red') +
+     theme(axis_text_x=element_text(rotation=45)) +
+     ggtitle('Closing Price \\w Bollinger Bands\nUSD to BTC (minutely)')
+)
 
-# In[0]: Plot hourly number of trades over time.
+# In[0]: Plot hourly  number of trades over time.
 
-fig=plt.figure(figsize=figure_size, dpi= 80, facecolor='w', edgecolor='k')
-plt.suptitle('Number of Trades\nUSD to BTC (hourly)', fontsize=20)
-plt.xlabel('Time', fontsize=18)
-plt.ylabel('Number of Trades', fontsize=16)
-plt.plot(hourly_candles['timestamp'], hourly_candles['trades'], 'black', label='Total Number Trades')
-plt.plot(hourly_candles['timestamp'], hourly_candles['trades'].rolling(24).mean(), 'blue', label='Rolling Mean')
-plt.legend()
-plt.show()
+(ggplot(hourly_candles) +
+     geom_line(aes('timestamp', 'trades'), color='black') +
+     theme(axis_text_x=element_text(rotation=45)) +
+     ggtitle('Number of Trades\nUSD to BTC (minutely)')
+)
 
 # In[0]: Plot daily closing price with Bollinger bands over time
 
-fig=plt.figure(figsize=figure_size, dpi=80, facecolor='w', edgecolor='k')
-fig.suptitle(' Closing Price \\w Bollinger Bands\nUSD to BTC (daily)', fontsize=20)
-plt.xlabel('Time', fontsize=18)
-plt.ylabel('Closing Price', fontsize=16)
-plt.plot(daily_candles['timestamp'], daily_candles['close'], 'black', label='Closing Price')
-plt.plot(daily_candles['timestamp'], daily_candles['rolling_mean'], 'gray', label='Rolling Mean')
-plt.plot(daily_candles['timestamp'], daily_candles['bollinger_top'], 'blue', label='Bollinger Bands')
-plt.plot(daily_candles['timestamp'], daily_candles['bollinger_bottom'], 'blue', label='')
 bollinger_buy = daily_candles[daily_candles['cross_bollinger_bottom'] == True]
-plt.plot(bollinger_buy['timestamp'], bollinger_buy['close'], 'ro', label='Advise Buy')
 bollinger_sell = daily_candles[daily_candles['cross_bollinger_top'] == True]
-plt.plot(bollinger_sell['timestamp'], bollinger_sell['close'], 'go', label='Advise Sell')
-plt.legend()
-plt.show()
+(ggplot(data=None) +
+     geom_line(aes('timestamp', 'close'), data=daily_candles, color='black') +
+     geom_line(aes('timestamp', 'rolling_mean'), data=daily_candles, color='grey') +
+     geom_line(aes('timestamp', 'bollinger_top'), data=daily_candles, color='blue') +
+     geom_line(aes('timestamp', 'bollinger_bottom'), data=daily_candles, color='blue') +
+     geom_point(aes('timestamp', 'close'), data=bollinger_buy, color='green') +
+     geom_point(aes('timestamp', 'close'), data=bollinger_sell, color='red') +
+     theme(axis_text_x=element_text(rotation=45)) +
+     ggtitle('Closing Price \\w Bollinger Bands\nUSD to BTC (minutely)')
+)
 
 # In[0]: Plot daily number of trades over time.
 
-fig = plt.figure(figsize=figure_size, dpi=80, facecolor='w', edgecolor='k')
-plt.suptitle('Number of Trades\nUSD to BTC (daily)', fontsize=20)
-plt.xlabel('Time', fontsize=18)
-plt.ylabel('Number of Trades', fontsize=16)
-plt.plot(daily_candles['timestamp'], daily_candles['trades'], 'black', label='Total Number Trades')
-plt.plot(daily_candles['timestamp'], daily_candles['trades'].rolling(3).mean(), 'blue', label='Rolling Mean')
-plt.legend()
-plt.show()
+(ggplot(daily_candles) +
+     geom_line(aes('timestamp', 'trades'), color='black') +
+     theme(axis_text_x=element_text(rotation=45)) +
+     ggtitle('Number of Trades\nUSD to BTC (minutely)')
+)
