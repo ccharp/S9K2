@@ -6,3 +6,4 @@ SECRET-api-keys.json
 .project
 .settings
 jupyter/.ipynb_checkpoints/**
+history/**
