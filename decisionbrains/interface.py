@@ -3,7 +3,7 @@ import json
 
 DECISION_LONG = "long"
 DECISION_SHORT = "short"
-DECISION_HODL= "hodl"
+DECISION_HODL = "hodl"
 
 def decide():
     # return (Call to ML stuff here)
