@@ -32,7 +32,7 @@ config.watch = {
 
 config.tradingAdvisor = {
   enabled: true,
-  method: 'MACD',
+  method: 'decisionbrains',
   candleSize: 1,
   historySize: 3,
   adapter: 'sqlite',
