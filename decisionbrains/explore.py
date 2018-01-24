@@ -28,7 +28,7 @@ print(hourly_candles.head())
 # In[0]: Turn hourly candles into daily candles.
 
 daily_candles = candles.agg_to_daily(hourly_candles)
-daily_candles = candles.add_bollinger_bands(daily_candles, 3)
+daily_candles = candles.add_bollinger_bands(daily_candles, 7)
 print(daily_candles.head())
 
 # In[0]: Plot minutely closing price with Bollinger bands over time

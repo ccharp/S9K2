@@ -58,6 +58,6 @@ def add_bollinger_bands(candles, window_size=1):
            mutate(above_bollinger_top = 'close >= bollinger_top',
                   below_bollinger_bottom = 'close <= bollinger_bottom') >>
            mutate(cross_bollinger_top = 'above_bollinger_top.shift() * ~above_bollinger_top',
-                  cross_bollinger_bottom = 'below_bollinger_bottom.shift() * ~below_bollinger_bottom',) >>
+                  cross_bollinger_bottom = 'below_bollinger_bottom.shift() * ~below_bollinger_bottom') >>
            call('.dropna')
     )
