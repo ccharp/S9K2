@@ -32,7 +32,11 @@ describe('indicators/PPO', function() {
     var ppo = new PPO({short: 12, long: 26, signal: 9});
     _.each(prices, function(p, i) {
       ppo.update(p);
+<<<<<<< HEAD
       expect(ppo.ppo).to.equal(verified_ppo12v26v9[i]);
+=======
+      expect(ppo.result.ppo).to.equal(verified_ppo12v26v9[i]);
+>>>>>>> gekko-upstream/develop
     });
   });
 
@@ -40,7 +44,11 @@ describe('indicators/PPO', function() {
     var ppo = new PPO({short: 12, long: 26, signal: 9});
     _.each(prices, function(p, i) {
       ppo.update(p);
+<<<<<<< HEAD
       expect(ppo.PPOsignal.result).to.equal(verified_ppo12v26v9signal[i]);
+=======
+      expect(ppo.result.PPOsignal).to.equal(verified_ppo12v26v9signal[i]);
+>>>>>>> gekko-upstream/develop
     });
   });
 
@@ -49,7 +57,14 @@ describe('indicators/PPO', function() {
     var ppo = new PPO({short: 12, long: 26, signal: 9});
     _.each(prices, function(p, i) {
       ppo.update(p);
+<<<<<<< HEAD
       expect(ppo.PPOhist).to.equal(verified_ppo12v26v9hist[i]);
     });
   });
 });
+=======
+      expect(ppo.result.PPOhist).to.equal(verified_ppo12v26v9hist[i]);
+    });
+  });
+});
+>>>>>>> gekko-upstream/develop

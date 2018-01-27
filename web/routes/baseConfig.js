@@ -1,4 +1,4 @@
-var UIconfig = require('../vue/UIconfig')();
+var UIconfig = require('../vue/UIconfig');
 
 var config = {};
 
@@ -14,14 +14,6 @@ config.debug = true;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 config.tradingAdvisor = {
-  talib: {
-    enabled: require('../supportsTalib'),
-    version: '1.0.2'
-  },
-  tulind: {
-    enabled: require('../supportsTulip'),
-    version: '0.8.7'
-  }
 }
 
 config.candleWriter = {
@@ -30,6 +22,10 @@ config.candleWriter = {
 config.adviceWriter = {
   enabled: false,
   muteSoft: true,
+}
+
+config.trader = {
+  orderUpdateDelay: 1 // Number of minutes to adjust unfilled order prices
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -43,7 +39,7 @@ config.sqlite = {
   path: 'plugins/sqlite',
   version: 0.1,
   dataDirectory: 'history',
-  journalMode: 'WAL', // setting this to 'DEL' may prevent db locking on windows
+  journalMode: require('../isWindows.js') ? 'PERSIST' : 'WAL',
   dependencies: [{
     module: 'sqlite3',
     version: '3.1.4'

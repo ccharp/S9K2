@@ -1,10 +1,12 @@
 var fork = require('child_process').fork;
 
 module.exports = (mode, config, callback) => {
-  // If we don't set execArgv to some value, it will inherit the
-  // parent's execArgv. When debugging, this includes the flag
-  // "--inspect-brk=3593" which breaks the child script.
-  var child = fork(__dirname + '/child', [], {execArgv: []});
+  var debug = typeof v8debug === 'object';
+  if (debug) {
+    process.execArgv = [];
+  }
+
+  var child = fork(__dirname + '/child');
 
   // How we should handle client messages depends
   // on the mode of the Pipeline that is being ran.
@@ -14,12 +16,15 @@ module.exports = (mode, config, callback) => {
     what: 'start',
     mode: mode,
     config: config
-  }
+  };
 
   child.on('message', function(m) {
 
     if(m === 'ready')
       return child.send(message);
+
+    if(m === 'done')
+      return child.send({what: 'exit'});
 
     handle.message(m);
   });

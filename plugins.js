@@ -164,6 +164,13 @@ var plugins = [
     modes: ['realtime']
   },
   {
+    name: 'Kodi',
+    description: 'Sends advice to Kodi.',
+    slug: 'kodi',
+    async: false,
+    modes: ['realtime']
+  },
+  {
     name: 'Twitter',
     description: 'Sends trades to twitter.',
     slug: 'twitter',
@@ -179,7 +186,7 @@ var plugins = [
   },
   {
     name: 'IFTTT',
-    description: 'Sends trades to IFTTTT webhook.',
+    description: 'Sends trades to IFTTT webhook.',
     slug: 'ifttt',
     async: false,
     modes: ['realtime']

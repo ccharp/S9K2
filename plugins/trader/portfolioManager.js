@@ -12,12 +12,11 @@
 var _ = require('lodash');
 var util = require('../../core/util');
 var dirs = util.dirs();
-var events = require("events");
+var events = require('events');
 var log = require(dirs.core + 'log');
 var async = require('async');
 var checker = require(dirs.core + 'exchangeChecker.js');
 var moment = require('moment');
-var async = require('async');
 
 var Manager = function(conf) {
   _.bindAll(this);
@@ -105,7 +104,7 @@ Manager.prototype.setPortfolio = function(callback) {
 
   }.bind(this);
 
-  util.retry(this.exchange.getPortfolio, set);
+  this.exchange.getPortfolio(set);
 };
 
 Manager.prototype.setFee = function(callback) {
@@ -118,7 +117,7 @@ Manager.prototype.setFee = function(callback) {
     if(_.isFunction(callback))
       callback();
   }.bind(this);
-  util.retry(this.exchange.getFee, set);
+  this.exchange.getFee(set);
 };
 
 Manager.prototype.setTicker = function(callback) {
@@ -131,7 +130,7 @@ Manager.prototype.setTicker = function(callback) {
     if(_.isFunction(callback))
       callback();
   }.bind(this);
-  util.retry(this.exchange.getTicker, set);
+  this.exchange.getTicker(set);
 };
 
 // return the [fund] based on the data we have in memory
@@ -190,62 +189,80 @@ Manager.prototype.getMinimum = function(price) {
 // the asset, if so BUY and keep track of the order
 // (amount is in asset quantity)
 Manager.prototype.buy = function(amount, price) {
+  let minimum = 0;
+  let process = (err, order) => {
+    // if order to small
+    if(!order.amount || order.amount < minimum) {
+      return log.warn(
+        'Wanted to buy',
+        this.asset,
+        'but the amount is too small ',
+        '(' + parseFloat(amount).toFixed(8) + ' @',
+        parseFloat(price).toFixed(8),
+        ') at',
+        this.exchange.name
+      );
+    }
 
-  var minimum = this.getMinimum(price);
-
-  // if order to small
-  if(amount < minimum) {
-    return log.error(
-      'Wanted to buy',
+    log.info(
+      'Attempting to BUY',
+      order.amount,
       this.asset,
-      'but the amount is too small',
-      '(' + parseFloat(amount).toFixed(12) + ')',
       'at',
-      this.exchange.name
+      this.exchange.name,
+      'price:',
+      order.price
     );
+
+    this.exchange.buy(order.amount, order.price, this.noteOrder);
   }
 
-  log.info(
-    'Attempting to BUY',
-    amount,
-    this.asset,
-    'at',
-    this.exchange.name,
-    'price:',
-    price
-  );
-  this.exchange.buy(amount, price, this.noteOrder);
+  if (_.has(this.exchange, 'getLotSize')) {
+    this.exchange.getLotSize('buy', amount, price, _.bind(process));
+  } else {
+    minimum = this.getMinimum(price);
+    process(undefined, { amount: amount, price: price });
+  }
 };
 
 // first do a quick check to see whether we can sell
 // the asset, if so SELL and keep track of the order
 // (amount is in asset quantity)
 Manager.prototype.sell = function(amount, price) {
+  let minimum = 0;
+  let process = (err, order) => {
+    // if order to small
+    if (!order.amount || order.amount < minimum) {
+      return log.warn(
+        'Wanted to buy',
+        this.currency,
+        'but the amount is too small ',
+        '(' + parseFloat(amount).toFixed(8) + ' @',
+        parseFloat(price).toFixed(8),
+        ') at',
+        this.exchange.name
+      );
+    }
 
-  var minimum = this.getMinimum(price);
-
-  // if order to small
-  if(amount < minimum) {
-    return log.error(
-      'Wanted to buy',
-      this.currency,
-      'but the amount is too small',
-      '(' + parseFloat(amount).toFixed(12) + ')',
+    log.info(
+      'Attempting to SELL',
+      order.amount,
+      this.asset,
       'at',
-      this.exchange.name
+      this.exchange.name,
+      'price:',
+      order.price
     );
+
+    this.exchange.sell(order.amount, order.price, this.noteOrder);
   }
 
-  log.info(
-    'Attempting to SELL',
-    amount,
-    this.asset,
-    'at',
-    this.exchange.name,
-    'price:',
-    price
-  );
-  this.exchange.sell(amount, price, this.noteOrder);
+  if (_.has(this.exchange, 'getLotSize')) {
+    this.exchange.getLotSize('sell', amount, price, _.bind(process));
+  } else {
+    minimum = this.getMinimum(price);
+    process(undefined, { amount: amount, price: price });
+  }
 };
 
 Manager.prototype.noteOrder = function(err, order) {
@@ -254,9 +271,10 @@ Manager.prototype.noteOrder = function(err, order) {
   }
 
   this.orders.push(order);
-  // if after 1 minute the order is still there
-  // we cancel and calculate & make a new one
-  setTimeout(this.checkOrder, util.minToMs(1));
+
+  // If unfilled, cancel and replace order with adjusted price
+  let cancelDelay = this.conf.orderUpdateDelay || 1;
+  setTimeout(this.checkOrder, util.minToMs(cancelDelay));
 };
 
 

@@ -32,18 +32,10 @@ config.watch = {
 
 config.tradingAdvisor = {
   enabled: true,
-  method: 'decisionbrains',
+  method: 'MACD',
   candleSize: 1,
   historySize: 3,
-  adapter: 'sqlite',
-  talib: {
-    enabled: false,
-    version: '1.0.2'
-  },
-  tulind: {
-    enabled: false,
-    version: '0.8.7'
-  }
+  adapter: 'sqlite'
 }
 
 // Exponential Moving Averages settings:
@@ -224,7 +216,8 @@ config.trader = {
   key: '',
   secret: '',
   username: '', // your username, only required for specific exchanges.
-  passphrase: '' // GDAX, requires a passphrase.
+  passphrase: '', // GDAX, requires a passphrase.
+  orderUpdateDelay: 1, // Number of minutes to adjust unfilled order prices
 }
 
 config.adviceLogger = {
@@ -291,6 +284,14 @@ config.pushbullet = {
     // will make Gekko messages start mit [GEKKO]
   tag: '[GEKKO]'
 };
+
+config.kodi = {
+  // if you have a username & pass, add it like below
+  // http://user:pass@ip-or-hostname:8080/jsonrpc
+  host: 'http://ip-or-hostname:8080/jsonrpc',
+  enabled: false,
+  sendMessageOnStart: true,
+}
 
 config.ircbot = {
   enabled: false,
@@ -398,7 +399,7 @@ config.sqlite = {
   dataDirectory: 'history',
   version: 0.1,
 
-  journalMode: 'WAL', // setting this to 'DEL' may prevent db locking on windows
+  journalMode: require('./web/isWindows.js') ? 'DELETE' : 'WAL',
 
   dependencies: []
 }
@@ -446,7 +447,7 @@ config.backtest = {
 config.importer = {
   daterange: {
     // NOTE: these dates are in UTC
-    from: "2016-01-01 00:00:00"
+    from: "2017-11-01 00:00:00"
   }
 }
 

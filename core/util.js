@@ -5,6 +5,7 @@ var fs = require('fs');
 var semver = require('semver');
 var program = require('commander');
 var retry = require('retry');
+var Errors = require('./error');
 
 var startTime = moment();
 
@@ -15,6 +16,19 @@ var _gekkoMode = false;
 var _gekkoEnv = false;
 
 var _args = false;
+
+var retryHelper = function(fn, options, callback) {
+  var operation = retry.operation(options);
+  operation.attempt(function(currentAttempt) {
+    fn(function(err, result) {
+      if (!(err instanceof Errors.AbortError) && operation.retry(err)) {
+        return;
+      }
+
+      callback(err ? err.message : null, result);
+    });
+  });
+}
 
 // helper functions
 var util = {
@@ -153,43 +167,28 @@ var util = {
   gekkoEnv: function() {
     return _gekkoEnv || 'standalone';
   },
-  shouldLaunchUI: function() {
-    if(program['ui'] || program['uiDebug']) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  },
   launchUI: function() {
-    if (program['ui']) {
-      require(util.dirs().web + 'server')({ debug: false })
-    }
-    else if (program['uiDebug']) {
-      require(util.dirs().web + 'server')({ debug: true })
-    }
+    if(program['ui'])
+      return true;
+    else
+      return false;
   },
   getStartTime: function() {
     return startTime;
   },
   retry: function(fn, callback) {
-    var operation = retry.operation({
+    var options = {
       retries: 5,
       factor: 1.2,
       minTimeout: 1 * 1000,
       maxTimeout: 3 * 1000
-    });
+    };
  
-    operation.attempt(function(currentAttempt) {
-      fn(function(err, result) {
-        if (operation.retry(err)) {
-          return;
-        }
-
-        callback(err ? operation.mainError() : null, result);
-      });
-    });
-  }
+    retryHelper(fn, operation, callback);
+  },
+  retryCustom: function(options, fn, callback) {
+    retryHelper(fn, options, callback);
+  },
 }
 
 // NOTE: those options are only used
@@ -200,7 +199,6 @@ program
   .option('-b, --backtest', 'backtesting mode')
   .option('-i, --import', 'importer mode')
   .option('--ui', 'launch a web UI')
-  .option('--ui-debug', 'launch a web UI (debug mode)')
   .parse(process.argv);
 
 // make sure the current node version is recent enough
@@ -209,7 +207,7 @@ if(!util.recentNode())
     'Your local version of Node.js is too old. ',
     'You have ',
     process.version,
-    ' and you need at least ',
+    ' and you need atleast ',
     util.getRequiredNodeVersion()
   ].join(''), true);
 
