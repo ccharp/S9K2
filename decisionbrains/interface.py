@@ -8,7 +8,7 @@ DECISION_HODL = "hodl"
 def decide():
     # return (Call to ML stuff here)
 
-    # TODO ross test
+    # TODO ross test moar
     return DECISION_HODL
 
 def read_in():
