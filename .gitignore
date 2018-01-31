@@ -36,7 +36,7 @@ dwsync.xml
 *.espressostorage
 
 # Folders & files to ignore
-
+decisionbrains/__pycache__
 node_modules
 candles.csv
 cexio.db
