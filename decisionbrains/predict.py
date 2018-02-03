@@ -1,6 +1,7 @@
 # %%: Set up environment.
 import os
 import candles
+import talib_wrapper as taw
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,6 +26,9 @@ hourly_candles = candles.add_bollinger_bands(hourly_candles, 48)
 print(hourly_candles.head())
 
 # %%: Set up features & response variable.
+
+columns = taw.with_config("MACD", hourly_candles)
+print(columns.head(35))
 
 hourly_candles.set_index('timestamp', inplace=True)
 

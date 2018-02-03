@@ -1,0 +1,1873 @@
+{
+  "ACOS": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "AD": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close",
+          "volume"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "ADD": [
+    {
+      "input_names": {
+        "price0": "high",
+        "price1": "low"
+      },
+      "parameters": {}
+    }
+  ],
+  "ADOSC": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close",
+          "volume"
+        ]
+      },
+      "parameters": {
+        "fastperiod": 3,
+        "slowperiod": 10
+      }
+    }
+  ],
+  "ADX": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "ADXR": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "APO": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "fastperiod": 12,
+        "matype": 0,
+        "slowperiod": 26
+      }
+    }
+  ],
+  "AROON": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "AROONOSC": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "ASIN": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "ATAN": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "ATR": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "AVGPRICE": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "BBANDS": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "matype": 0,
+        "nbdevdn": 2,
+        "nbdevup": 2,
+        "timeperiod": 5
+      }
+    }
+  ],
+  "BETA": [
+    {
+      "input_names": {
+        "price0": "high",
+        "price1": "low"
+      },
+      "parameters": {
+        "timeperiod": 5
+      }
+    }
+  ],
+  "BOP": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CCI": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "CDL2CROWS": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDL3BLACKCROWS": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDL3INSIDE": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDL3LINESTRIKE": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDL3OUTSIDE": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDL3STARSINSOUTH": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDL3WHITESOLDIERS": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLABANDONEDBABY": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "penetration": 0.3
+      }
+    }
+  ],
+  "CDLADVANCEBLOCK": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLBELTHOLD": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLBREAKAWAY": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLCLOSINGMARUBOZU": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLCONCEALBABYSWALL": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLCOUNTERATTACK": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLDARKCLOUDCOVER": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "penetration": 0.5
+      }
+    }
+  ],
+  "CDLDOJI": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLDOJISTAR": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLDRAGONFLYDOJI": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLENGULFING": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLEVENINGDOJISTAR": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "penetration": 0.3
+      }
+    }
+  ],
+  "CDLEVENINGSTAR": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "penetration": 0.3
+      }
+    }
+  ],
+  "CDLGAPSIDESIDEWHITE": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLGRAVESTONEDOJI": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLHAMMER": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLHANGINGMAN": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLHARAMI": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLHARAMICROSS": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLHIGHWAVE": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLHIKKAKE": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLHIKKAKEMOD": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLHOMINGPIGEON": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLIDENTICAL3CROWS": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLINNECK": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLINVERTEDHAMMER": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLKICKING": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLKICKINGBYLENGTH": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLLADDERBOTTOM": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLLONGLEGGEDDOJI": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLLONGLINE": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLMARUBOZU": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLMATCHINGLOW": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLMATHOLD": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "penetration": 0.5
+      }
+    }
+  ],
+  "CDLMORNINGDOJISTAR": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "penetration": 0.3
+      }
+    }
+  ],
+  "CDLMORNINGSTAR": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "penetration": 0.3
+      }
+    }
+  ],
+  "CDLONNECK": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLPIERCING": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLRICKSHAWMAN": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLRISEFALL3METHODS": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLSEPARATINGLINES": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLSHOOTINGSTAR": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLSHORTLINE": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLSPINNINGTOP": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLSTALLEDPATTERN": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLSTICKSANDWICH": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLTAKURI": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLTASUKIGAP": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLTHRUSTING": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLTRISTAR": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLUNIQUE3RIVER": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLUPSIDEGAP2CROWS": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CDLXSIDEGAP3METHODS": [
+    {
+      "input_names": {
+        "prices": [
+          "open",
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "CEIL": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "CMO": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "CORREL": [
+    {
+      "input_names": {
+        "price0": "high",
+        "price1": "low"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "COS": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "COSH": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "DEMA": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "DIV": [
+    {
+      "input_names": {
+        "price0": "high",
+        "price1": "low"
+      },
+      "parameters": {}
+    }
+  ],
+  "DX": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "EMA": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "EXP": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "FLOOR": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "HT_DCPERIOD": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "HT_DCPHASE": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "HT_PHASOR": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "HT_SINE": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "HT_TRENDLINE": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "HT_TRENDMODE": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "KAMA": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "LINEARREG": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "LINEARREG_ANGLE": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "LINEARREG_INTERCEPT": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "LINEARREG_SLOPE": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "LN": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "LOG10": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "MA": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "matype": 0,
+        "timeperiod": 30
+      }
+    }
+  ],
+  "MACD": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "fastperiod": 12,
+        "signalperiod": 9,
+        "slowperiod": 26
+      }
+    }
+  ],
+  "MACDEXT": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "fastmatype": 0,
+        "fastperiod": 12,
+        "signalmatype": 0,
+        "signalperiod": 9,
+        "slowmatype": 0,
+        "slowperiod": 26
+      }
+    }
+  ],
+  "MACDFIX": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "signalperiod": 9
+      }
+    }
+  ],
+  "MAMA": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "fastlimit": 0.5,
+        "slowlimit": 0.05
+      }
+    }
+  ],
+  "MAVP": [
+    {
+      "input_names": {
+        "periods": "periods",
+        "price": "close"
+      },
+      "parameters": {
+        "matype": 0,
+        "maxperiod": 30,
+        "minperiod": 2
+      }
+    }
+  ],
+  "MAX": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "MAXINDEX": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "MEDPRICE": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "MFI": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close",
+          "volume"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "MIDPOINT": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "MIDPRICE": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "MIN": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "MININDEX": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "MINMAX": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "MINMAXINDEX": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "MINUS_DI": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "MINUS_DM": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "MOM": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 10
+      }
+    }
+  ],
+  "MULT": [
+    {
+      "input_names": {
+        "price0": "high",
+        "price1": "low"
+      },
+      "parameters": {}
+    }
+  ],
+  "NATR": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "OBV": [
+    {
+      "input_names": {
+        "price": "close",
+        "prices": [
+          "volume"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "PLUS_DI": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "PLUS_DM": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "PPO": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "fastperiod": 12,
+        "matype": 0,
+        "slowperiod": 26
+      }
+    }
+  ],
+  "ROC": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 10
+      }
+    }
+  ],
+  "ROCP": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 10
+      }
+    }
+  ],
+  "ROCR": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 10
+      }
+    }
+  ],
+  "ROCR100": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 10
+      }
+    }
+  ],
+  "RSI": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "SAR": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low"
+        ]
+      },
+      "parameters": {
+        "acceleration": 0.02,
+        "maximum": 0.2
+      }
+    }
+  ],
+  "SAREXT": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low"
+        ]
+      },
+      "parameters": {
+        "accelerationinitlong": 0.02,
+        "accelerationinitshort": 0.02,
+        "accelerationlong": 0.02,
+        "accelerationmaxlong": 0.2,
+        "accelerationmaxshort": 0.2,
+        "accelerationshort": 0.02,
+        "offsetonreverse": 0,
+        "startvalue": 0
+      }
+    }
+  ],
+  "SIN": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "SINH": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "SMA": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "SQRT": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "STDDEV": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "nbdev": 1,
+        "timeperiod": 5
+      }
+    }
+  ],
+  "STOCH": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "fastk_period": 5,
+        "slowd_matype": 0,
+        "slowd_period": 3,
+        "slowk_matype": 0,
+        "slowk_period": 3
+      }
+    }
+  ],
+  "STOCHF": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "fastd_matype": 0,
+        "fastd_period": 3,
+        "fastk_period": 5
+      }
+    }
+  ],
+  "STOCHRSI": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "fastd_matype": 0,
+        "fastd_period": 3,
+        "fastk_period": 5,
+        "timeperiod": 14
+      }
+    }
+  ],
+  "SUB": [
+    {
+      "input_names": {
+        "price0": "high",
+        "price1": "low"
+      },
+      "parameters": {}
+    }
+  ],
+  "SUM": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "T3": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 5,
+        "vfactor": 0.7
+      }
+    }
+  ],
+  "TAN": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "TANH": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {}
+    }
+  ],
+  "TEMA": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "TRANGE": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "TRIMA": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "TRIX": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ],
+  "TSF": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "TYPPRICE": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "ULTOSC": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "timeperiod1": 7,
+        "timeperiod2": 14,
+        "timeperiod3": 28
+      }
+    }
+  ],
+  "VAR": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "nbdev": 1,
+        "timeperiod": 5
+      }
+    }
+  ],
+  "WCLPRICE": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {}
+    }
+  ],
+  "WILLR": [
+    {
+      "input_names": {
+        "prices": [
+          "high",
+          "low",
+          "close"
+        ]
+      },
+      "parameters": {
+        "timeperiod": 14
+      }
+    }
+  ],
+  "WMA": [
+    {
+      "input_names": {
+        "price": "close"
+      },
+      "parameters": {
+        "timeperiod": 30
+      }
+    }
+  ]
+}

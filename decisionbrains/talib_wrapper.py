@@ -1,6 +1,8 @@
+import json
+import pandas as pd
+import numpy as np
 import talib as t
 import talib.abstract as ta
-import talib_config as tc
 
 # Only useful documentation available: https://github.com/stoni/ta-lib/blob/master/include/ta_func.h
 # Best examples on usage come from the tests: https://github.com/mrjbq7/ta-lib/blob/master/talib/test_abstract.py
@@ -40,43 +42,41 @@ def get_pattern_recognizers():
 def get_volume_indicators():
     return t.get_function_groups()['Volume Indicators']
 
-def with_config(name):
+def gen_default_config():
+    configs = {}
+    # TODO: consider organizing by group
+    for name in t.__TA_FUNCTION_NAMES__:
+        info = ta.Function(name).info
+        config = {}
+        # There are many keys on info -- we only care about these two
+        config["parameters"] = info["parameters"]
+        config["input_names"] = info["input_names"]
+        configs[name] = [config]
+    return configs
+
+def load_configs(name="talib_default.json"):
+    try:
+        return json.loads(open(name, "r").read())
+    except:
+        print("file " + name + " does not exist.")
+        return {}
+
+def write_config(name="talib_default.json", config=gen_default_config()):
+    open(name, "w+").write(json.dumps(config, indent=2, sort_keys=True))
+
+# Tsk, tsk. Global state.
+_configs = load_configs()
+
+def with_config(name, data):
     uname = name.upper()
-    if uname not in tc.config:
+    if uname not in _configs:
         raise ValueError("No config found for " + name + ". Try again, you worthless sack of shit.")
-    func_config = tc.config[uname]
-    ta_func = ta.Function(uname)
-    ta_func.parameters = func_config["parameters"]
-    ta_func.input_names = func_config["input_names"]
-    return ta_func()
 
-def quote(s):
-    return "'" + s + "'"
-
-def gen_config():
-    tab = "    "
-    print("config = {")
-    function_groups = t.get_function_groups()
-    for group_name in function_groups:
-        print(tab + "# Group: " + group_name)
-        for name in function_groups[group_name]:
-            info = ta.Function(name).info
-            print(tab + quote(info["name"]) + " : { # " + info["display_name"])
-
-            print(tab*2 + "'parameters' : {")
-            params = info["parameters"]
-            for p_key in params:
-                print(tab*3 + quote(p_key) + " : " + str(params[p_key]) + ",")
-            print(tab*2 + "},")
-
-            input_names = info["input_names"]
-            print(tab*2 + "'input_names' : {")
-            for in_key in input_names:
-                v = input_names[in_key]
-                print(tab*3 + quote(in_key) + " : " + (quote(v) if isinstance(v, str) else str(v)) + ",")
-            print(tab*2 + "},")
-
-            print(tab*2 + "# Output: " + str(ta.Function(name).info['output_names']))
-            print(tab + "},")
-        print("\n")
-    print("}")
+    # apparently isn't a nice way create an empty data frame...
+    results = pd.DataFrame(np.nan, index=[0], columns=["A"])
+    for func_config in _configs[uname]:
+        ta_func = ta.Function(uname)
+        ta_func.parameters = func_config["parameters"]
+        ta_func.input_names = func_config["input_names"]
+        results.append(ta_func(data))
+    return results.drop("A", 1)
