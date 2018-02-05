@@ -60,7 +60,19 @@ def compute_technical_indicator(data, name, config):
     ta_func.parameters = params
     ta_func.input_names = config['input_names']
     indicator = ta_func(data)
-    param_str = '_'.join(['{0}_{1}'.format(*x) for x in zip(params.keys(), params.values())])
-    indicator.name = '{0}_{1}'.format(name, param_str)
+    indicator_name = name
+    if len(params) > 0:
+        indicator_name += '_' + '_'.join(['{0}_{1}'.format(*x) for x in zip(params.keys(), params.values())])
+    indicator.name = indicator_name
     return indicator
 
+def compute_all_indicators(data, config):
+    indicators = []
+    for indicator_name in config.keys():
+        for configuration in config[indicator_name]:
+            try:
+                indicator = compute_technical_indicator(data, indicator_name, configuration)
+                indicators.append(indicator)
+            except Exception as e:
+                print('Error computing indicator "{0}" with config "{1}": {2}'.format(indicator_name, configuration, e))
+    return pd.concat(indicators, axis=1)
