@@ -7,14 +7,6 @@ import talib.abstract as ta
 # Only useful documentation available: https://github.com/stoni/ta-lib/blob/master/include/ta_func.h
 # Best examples on usage come from the tests: https://github.com/mrjbq7/ta-lib/blob/master/talib/test_abstract.py
 
-def help():
-    for name in ta.__TA_FUNCTION_NAMES__:
-        print(name + " (" + ta.Function(name).info["display_name"] + ")")
-        print("    Group: " + ta.Function(name).info['group'])
-        print("    Input: " + str(ta.Function(name).info['input_names']))
-        print("    Parameters: " + str(ta.Function(name).info['parameters']))
-        print("    Output: " + str(ta.Function(name).info['output_names']))
-
 def get_cycle_indicators():
     return t.get_function_groups()['Cycle Indicators']
 
@@ -42,35 +34,33 @@ def get_pattern_recognizers():
 def get_volume_indicators():
     return t.get_function_groups()['Volume Indicators']
 
-def gen_default_config():
+def get_default_config():
     configs = {}
     # TODO: consider organizing by group
     for name in t.__TA_FUNCTION_NAMES__:
         info = ta.Function(name).info
-        config = {}
         # There are many keys on info -- we only care about these two
-        config["parameters"] = info["parameters"]
-        config["input_names"] = info["input_names"]
-        configs[name] = [config]
+        configs[name] = [{
+            'parameters': info['parameters'],
+            'input_names': info['input_names']
+        }]
     return configs
 
-def load_configs(name="talib_default.json"):
-    try:
-        return json.loads(open(name, "r").read())
-    except:
-        print("file " + name + " does not exist.")
-        return {}
+def load_config(name="talib_default.json"):
+    with open(name, 'r') as f:
+        return json.load(f)
 
-def write_config(name="talib_default.json", config=gen_default_config()):
-    open(name, "w+").write(json.dumps(config, indent=2, sort_keys=True))
+def write_config(name="talib_default.json", config=get_default_config()):
+    with open(name, "w+") as f:
+        json.dump(config, f, indent=2, sort_keys=True)
 
 # Tsk, tsk. Global state.
-_configs = load_configs()
+_configs = load_config()
 
 def with_config(name, data):
     uname = name.upper()
     if uname not in _configs:
-        raise ValueError("No config found for " + name + ". Try again, you worthless sack of shit.")
+        raise ValueError('No config found for "{0}".'.format(name))
 
     # apparently isn't a nice way create an empty data frame...
     results = pd.DataFrame(np.nan, index=[0], columns=["A"])
