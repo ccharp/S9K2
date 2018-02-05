@@ -27,9 +27,6 @@ print(hourly_candles.head())
 
 # %%: Set up features & response variable.
 
-columns = taw.with_config("MACD", hourly_candles)
-print(columns.head(35))
-
 hourly_candles.set_index('timestamp', inplace=True)
 
 lags = [hourly_candles]
