@@ -54,19 +54,13 @@ def write_config(name="talib_default.json", config=get_default_config()):
     with open(name, "w+") as f:
         json.dump(config, f, indent=2, sort_keys=True)
 
-# Tsk, tsk. Global state.
-_configs = load_config()
+def compute_technical_indicator(data, name, config):
+    ta_func = ta.Function(name)
+    params = config['parameters']
+    ta_func.parameters = params
+    ta_func.input_names = config['input_names']
+    indicator = ta_func(data)
+    param_str = '_'.join(['{0}_{1}'.format(*x) for x in zip(params.keys(), params.values())])
+    indicator.name = '{0}_{1}'.format(name, param_str)
+    return indicator
 
-def with_config(name, data):
-    uname = name.upper()
-    if uname not in _configs:
-        raise ValueError('No config found for "{0}".'.format(name))
-
-    # apparently isn't a nice way create an empty data frame...
-    results = pd.DataFrame(np.nan, index=[0], columns=["A"])
-    for func_config in _configs[uname]:
-        ta_func = ta.Function(uname)
-        ta_func.parameters = func_config["parameters"]
-        ta_func.input_names = func_config["input_names"]
-        results.append(ta_func(data))
-    return results.drop("A", 1)
