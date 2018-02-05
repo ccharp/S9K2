@@ -4,6 +4,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "ACOS",
       "parameters": {}
     }
   ],
@@ -17,6 +18,7 @@
           "volume"
         ]
       },
+      "name": "AD",
       "parameters": {}
     }
   ],
@@ -26,6 +28,7 @@
         "price0": "high",
         "price1": "low"
       },
+      "name": "ADD",
       "parameters": {}
     }
   ],
@@ -39,6 +42,7 @@
           "volume"
         ]
       },
+      "name": "ADOSC",
       "parameters": {
         "fastperiod": 3,
         "slowperiod": 10
@@ -54,6 +58,7 @@
           "close"
         ]
       },
+      "name": "ADX",
       "parameters": {
         "timeperiod": 14
       }
@@ -68,6 +73,7 @@
           "close"
         ]
       },
+      "name": "ADXR",
       "parameters": {
         "timeperiod": 14
       }
@@ -78,6 +84,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "APO",
       "parameters": {
         "fastperiod": 12,
         "matype": 0,
@@ -93,6 +100,7 @@
           "low"
         ]
       },
+      "name": "AROON",
       "parameters": {
         "timeperiod": 14
       }
@@ -106,6 +114,7 @@
           "low"
         ]
       },
+      "name": "AROONOSC",
       "parameters": {
         "timeperiod": 14
       }
@@ -116,6 +125,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "ASIN",
       "parameters": {}
     }
   ],
@@ -124,6 +134,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "ATAN",
       "parameters": {}
     }
   ],
@@ -136,6 +147,7 @@
           "close"
         ]
       },
+      "name": "ATR",
       "parameters": {
         "timeperiod": 14
       }
@@ -151,6 +163,7 @@
           "close"
         ]
       },
+      "name": "AVGPRICE",
       "parameters": {}
     }
   ],
@@ -159,6 +172,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "BBANDS",
       "parameters": {
         "matype": 0,
         "nbdevdn": 2,
@@ -173,6 +187,7 @@
         "price0": "high",
         "price1": "low"
       },
+      "name": "BETA",
       "parameters": {
         "timeperiod": 5
       }
@@ -188,6 +203,7 @@
           "close"
         ]
       },
+      "name": "BOP",
       "parameters": {}
     }
   ],
@@ -200,6 +216,7 @@
           "close"
         ]
       },
+      "name": "CCI",
       "parameters": {
         "timeperiod": 14
       }
@@ -215,6 +232,7 @@
           "close"
         ]
       },
+      "name": "CDL2CROWS",
       "parameters": {}
     }
   ],
@@ -228,6 +246,7 @@
           "close"
         ]
       },
+      "name": "CDL3BLACKCROWS",
       "parameters": {}
     }
   ],
@@ -241,6 +260,7 @@
           "close"
         ]
       },
+      "name": "CDL3INSIDE",
       "parameters": {}
     }
   ],
@@ -254,6 +274,7 @@
           "close"
         ]
       },
+      "name": "CDL3LINESTRIKE",
       "parameters": {}
     }
   ],
@@ -267,6 +288,7 @@
           "close"
         ]
       },
+      "name": "CDL3OUTSIDE",
       "parameters": {}
     }
   ],
@@ -280,6 +302,7 @@
           "close"
         ]
       },
+      "name": "CDL3STARSINSOUTH",
       "parameters": {}
     }
   ],
@@ -293,6 +316,7 @@
           "close"
         ]
       },
+      "name": "CDL3WHITESOLDIERS",
       "parameters": {}
     }
   ],
@@ -306,6 +330,7 @@
           "close"
         ]
       },
+      "name": "CDLABANDONEDBABY",
       "parameters": {
         "penetration": 0.3
       }
@@ -321,6 +346,7 @@
           "close"
         ]
       },
+      "name": "CDLADVANCEBLOCK",
       "parameters": {}
     }
   ],
@@ -334,6 +360,7 @@
           "close"
         ]
       },
+      "name": "CDLBELTHOLD",
       "parameters": {}
     }
   ],
@@ -347,6 +374,7 @@
           "close"
         ]
       },
+      "name": "CDLBREAKAWAY",
       "parameters": {}
     }
   ],
@@ -360,6 +388,7 @@
           "close"
         ]
       },
+      "name": "CDLCLOSINGMARUBOZU",
       "parameters": {}
     }
   ],
@@ -373,6 +402,7 @@
           "close"
         ]
       },
+      "name": "CDLCONCEALBABYSWALL",
       "parameters": {}
     }
   ],
@@ -386,6 +416,7 @@
           "close"
         ]
       },
+      "name": "CDLCOUNTERATTACK",
       "parameters": {}
     }
   ],
@@ -399,6 +430,7 @@
           "close"
         ]
       },
+      "name": "CDLDARKCLOUDCOVER",
       "parameters": {
         "penetration": 0.5
       }
@@ -414,6 +446,7 @@
           "close"
         ]
       },
+      "name": "CDLDOJI",
       "parameters": {}
     }
   ],
@@ -427,6 +460,7 @@
           "close"
         ]
       },
+      "name": "CDLDOJISTAR",
       "parameters": {}
     }
   ],
@@ -440,6 +474,7 @@
           "close"
         ]
       },
+      "name": "CDLDRAGONFLYDOJI",
       "parameters": {}
     }
   ],
@@ -453,6 +488,7 @@
           "close"
         ]
       },
+      "name": "CDLENGULFING",
       "parameters": {}
     }
   ],
@@ -466,6 +502,7 @@
           "close"
         ]
       },
+      "name": "CDLEVENINGDOJISTAR",
       "parameters": {
         "penetration": 0.3
       }
@@ -481,6 +518,7 @@
           "close"
         ]
       },
+      "name": "CDLEVENINGSTAR",
       "parameters": {
         "penetration": 0.3
       }
@@ -496,6 +534,7 @@
           "close"
         ]
       },
+      "name": "CDLGAPSIDESIDEWHITE",
       "parameters": {}
     }
   ],
@@ -509,6 +548,7 @@
           "close"
         ]
       },
+      "name": "CDLGRAVESTONEDOJI",
       "parameters": {}
     }
   ],
@@ -522,6 +562,7 @@
           "close"
         ]
       },
+      "name": "CDLHAMMER",
       "parameters": {}
     }
   ],
@@ -535,6 +576,7 @@
           "close"
         ]
       },
+      "name": "CDLHANGINGMAN",
       "parameters": {}
     }
   ],
@@ -548,6 +590,7 @@
           "close"
         ]
       },
+      "name": "CDLHARAMI",
       "parameters": {}
     }
   ],
@@ -561,6 +604,7 @@
           "close"
         ]
       },
+      "name": "CDLHARAMICROSS",
       "parameters": {}
     }
   ],
@@ -574,6 +618,7 @@
           "close"
         ]
       },
+      "name": "CDLHIGHWAVE",
       "parameters": {}
     }
   ],
@@ -587,6 +632,7 @@
           "close"
         ]
       },
+      "name": "CDLHIKKAKE",
       "parameters": {}
     }
   ],
@@ -600,6 +646,7 @@
           "close"
         ]
       },
+      "name": "CDLHIKKAKEMOD",
       "parameters": {}
     }
   ],
@@ -613,6 +660,7 @@
           "close"
         ]
       },
+      "name": "CDLHOMINGPIGEON",
       "parameters": {}
     }
   ],
@@ -626,6 +674,7 @@
           "close"
         ]
       },
+      "name": "CDLIDENTICAL3CROWS",
       "parameters": {}
     }
   ],
@@ -639,6 +688,7 @@
           "close"
         ]
       },
+      "name": "CDLINNECK",
       "parameters": {}
     }
   ],
@@ -652,6 +702,7 @@
           "close"
         ]
       },
+      "name": "CDLINVERTEDHAMMER",
       "parameters": {}
     }
   ],
@@ -665,6 +716,7 @@
           "close"
         ]
       },
+      "name": "CDLKICKING",
       "parameters": {}
     }
   ],
@@ -678,6 +730,7 @@
           "close"
         ]
       },
+      "name": "CDLKICKINGBYLENGTH",
       "parameters": {}
     }
   ],
@@ -691,6 +744,7 @@
           "close"
         ]
       },
+      "name": "CDLLADDERBOTTOM",
       "parameters": {}
     }
   ],
@@ -704,6 +758,7 @@
           "close"
         ]
       },
+      "name": "CDLLONGLEGGEDDOJI",
       "parameters": {}
     }
   ],
@@ -717,6 +772,7 @@
           "close"
         ]
       },
+      "name": "CDLLONGLINE",
       "parameters": {}
     }
   ],
@@ -730,6 +786,7 @@
           "close"
         ]
       },
+      "name": "CDLMARUBOZU",
       "parameters": {}
     }
   ],
@@ -743,6 +800,7 @@
           "close"
         ]
       },
+      "name": "CDLMATCHINGLOW",
       "parameters": {}
     }
   ],
@@ -756,6 +814,7 @@
           "close"
         ]
       },
+      "name": "CDLMATHOLD",
       "parameters": {
         "penetration": 0.5
       }
@@ -771,6 +830,7 @@
           "close"
         ]
       },
+      "name": "CDLMORNINGDOJISTAR",
       "parameters": {
         "penetration": 0.3
       }
@@ -786,6 +846,7 @@
           "close"
         ]
       },
+      "name": "CDLMORNINGSTAR",
       "parameters": {
         "penetration": 0.3
       }
@@ -801,6 +862,7 @@
           "close"
         ]
       },
+      "name": "CDLONNECK",
       "parameters": {}
     }
   ],
@@ -814,6 +876,7 @@
           "close"
         ]
       },
+      "name": "CDLPIERCING",
       "parameters": {}
     }
   ],
@@ -827,6 +890,7 @@
           "close"
         ]
       },
+      "name": "CDLRICKSHAWMAN",
       "parameters": {}
     }
   ],
@@ -840,6 +904,7 @@
           "close"
         ]
       },
+      "name": "CDLRISEFALL3METHODS",
       "parameters": {}
     }
   ],
@@ -853,6 +918,7 @@
           "close"
         ]
       },
+      "name": "CDLSEPARATINGLINES",
       "parameters": {}
     }
   ],
@@ -866,6 +932,7 @@
           "close"
         ]
       },
+      "name": "CDLSHOOTINGSTAR",
       "parameters": {}
     }
   ],
@@ -879,6 +946,7 @@
           "close"
         ]
       },
+      "name": "CDLSHORTLINE",
       "parameters": {}
     }
   ],
@@ -892,6 +960,7 @@
           "close"
         ]
       },
+      "name": "CDLSPINNINGTOP",
       "parameters": {}
     }
   ],
@@ -905,6 +974,7 @@
           "close"
         ]
       },
+      "name": "CDLSTALLEDPATTERN",
       "parameters": {}
     }
   ],
@@ -918,6 +988,7 @@
           "close"
         ]
       },
+      "name": "CDLSTICKSANDWICH",
       "parameters": {}
     }
   ],
@@ -931,6 +1002,7 @@
           "close"
         ]
       },
+      "name": "CDLTAKURI",
       "parameters": {}
     }
   ],
@@ -944,6 +1016,7 @@
           "close"
         ]
       },
+      "name": "CDLTASUKIGAP",
       "parameters": {}
     }
   ],
@@ -957,6 +1030,7 @@
           "close"
         ]
       },
+      "name": "CDLTHRUSTING",
       "parameters": {}
     }
   ],
@@ -970,6 +1044,7 @@
           "close"
         ]
       },
+      "name": "CDLTRISTAR",
       "parameters": {}
     }
   ],
@@ -983,6 +1058,7 @@
           "close"
         ]
       },
+      "name": "CDLUNIQUE3RIVER",
       "parameters": {}
     }
   ],
@@ -996,6 +1072,7 @@
           "close"
         ]
       },
+      "name": "CDLUPSIDEGAP2CROWS",
       "parameters": {}
     }
   ],
@@ -1009,6 +1086,7 @@
           "close"
         ]
       },
+      "name": "CDLXSIDEGAP3METHODS",
       "parameters": {}
     }
   ],
@@ -1017,6 +1095,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "CEIL",
       "parameters": {}
     }
   ],
@@ -1025,6 +1104,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "CMO",
       "parameters": {
         "timeperiod": 14
       }
@@ -1036,6 +1116,7 @@
         "price0": "high",
         "price1": "low"
       },
+      "name": "CORREL",
       "parameters": {
         "timeperiod": 30
       }
@@ -1046,6 +1127,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "COS",
       "parameters": {}
     }
   ],
@@ -1054,6 +1136,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "COSH",
       "parameters": {}
     }
   ],
@@ -1062,6 +1145,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "DEMA",
       "parameters": {
         "timeperiod": 30
       }
@@ -1073,6 +1157,7 @@
         "price0": "high",
         "price1": "low"
       },
+      "name": "DIV",
       "parameters": {}
     }
   ],
@@ -1085,6 +1170,7 @@
           "close"
         ]
       },
+      "name": "DX",
       "parameters": {
         "timeperiod": 14
       }
@@ -1095,6 +1181,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "EMA",
       "parameters": {
         "timeperiod": 30
       }
@@ -1105,6 +1192,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "EXP",
       "parameters": {}
     }
   ],
@@ -1113,6 +1201,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "FLOOR",
       "parameters": {}
     }
   ],
@@ -1121,6 +1210,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "HT_DCPERIOD",
       "parameters": {}
     }
   ],
@@ -1129,6 +1219,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "HT_DCPHASE",
       "parameters": {}
     }
   ],
@@ -1137,6 +1228,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "HT_PHASOR",
       "parameters": {}
     }
   ],
@@ -1145,6 +1237,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "HT_SINE",
       "parameters": {}
     }
   ],
@@ -1153,6 +1246,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "HT_TRENDLINE",
       "parameters": {}
     }
   ],
@@ -1161,6 +1255,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "HT_TRENDMODE",
       "parameters": {}
     }
   ],
@@ -1169,6 +1264,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "KAMA",
       "parameters": {
         "timeperiod": 30
       }
@@ -1179,6 +1275,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "LINEARREG",
       "parameters": {
         "timeperiod": 14
       }
@@ -1189,6 +1286,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "LINEARREG_ANGLE",
       "parameters": {
         "timeperiod": 14
       }
@@ -1199,6 +1297,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "LINEARREG_INTERCEPT",
       "parameters": {
         "timeperiod": 14
       }
@@ -1209,6 +1308,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "LINEARREG_SLOPE",
       "parameters": {
         "timeperiod": 14
       }
@@ -1219,6 +1319,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "LN",
       "parameters": {}
     }
   ],
@@ -1227,6 +1328,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "LOG10",
       "parameters": {}
     }
   ],
@@ -1235,6 +1337,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MA",
       "parameters": {
         "matype": 0,
         "timeperiod": 30
@@ -1246,6 +1349,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MACD",
       "parameters": {
         "fastperiod": 12,
         "signalperiod": 9,
@@ -1258,6 +1362,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MACDEXT",
       "parameters": {
         "fastmatype": 0,
         "fastperiod": 12,
@@ -1273,6 +1378,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MACDFIX",
       "parameters": {
         "signalperiod": 9
       }
@@ -1283,6 +1389,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MAMA",
       "parameters": {
         "fastlimit": 0.5,
         "slowlimit": 0.05
@@ -1295,6 +1402,7 @@
         "periods": "periods",
         "price": "close"
       },
+      "name": "MAVP",
       "parameters": {
         "matype": 0,
         "maxperiod": 30,
@@ -1307,6 +1415,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MAX",
       "parameters": {
         "timeperiod": 30
       }
@@ -1317,6 +1426,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MAXINDEX",
       "parameters": {
         "timeperiod": 30
       }
@@ -1330,6 +1440,7 @@
           "low"
         ]
       },
+      "name": "MEDPRICE",
       "parameters": {}
     }
   ],
@@ -1343,6 +1454,7 @@
           "volume"
         ]
       },
+      "name": "MFI",
       "parameters": {
         "timeperiod": 14
       }
@@ -1353,6 +1465,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MIDPOINT",
       "parameters": {
         "timeperiod": 14
       }
@@ -1366,6 +1479,7 @@
           "low"
         ]
       },
+      "name": "MIDPRICE",
       "parameters": {
         "timeperiod": 14
       }
@@ -1376,6 +1490,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MIN",
       "parameters": {
         "timeperiod": 30
       }
@@ -1386,6 +1501,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MININDEX",
       "parameters": {
         "timeperiod": 30
       }
@@ -1396,6 +1512,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MINMAX",
       "parameters": {
         "timeperiod": 30
       }
@@ -1406,6 +1523,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MINMAXINDEX",
       "parameters": {
         "timeperiod": 30
       }
@@ -1420,6 +1538,7 @@
           "close"
         ]
       },
+      "name": "MINUS_DI",
       "parameters": {
         "timeperiod": 14
       }
@@ -1433,6 +1552,7 @@
           "low"
         ]
       },
+      "name": "MINUS_DM",
       "parameters": {
         "timeperiod": 14
       }
@@ -1443,6 +1563,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "MOM",
       "parameters": {
         "timeperiod": 10
       }
@@ -1454,6 +1575,7 @@
         "price0": "high",
         "price1": "low"
       },
+      "name": "MULT",
       "parameters": {}
     }
   ],
@@ -1466,6 +1588,7 @@
           "close"
         ]
       },
+      "name": "NATR",
       "parameters": {
         "timeperiod": 14
       }
@@ -1479,6 +1602,7 @@
           "volume"
         ]
       },
+      "name": "OBV",
       "parameters": {}
     }
   ],
@@ -1491,6 +1615,7 @@
           "close"
         ]
       },
+      "name": "PLUS_DI",
       "parameters": {
         "timeperiod": 14
       }
@@ -1504,6 +1629,7 @@
           "low"
         ]
       },
+      "name": "PLUS_DM",
       "parameters": {
         "timeperiod": 14
       }
@@ -1514,6 +1640,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "PPO",
       "parameters": {
         "fastperiod": 12,
         "matype": 0,
@@ -1526,6 +1653,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "ROC",
       "parameters": {
         "timeperiod": 10
       }
@@ -1536,6 +1664,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "ROCP",
       "parameters": {
         "timeperiod": 10
       }
@@ -1546,6 +1675,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "ROCR",
       "parameters": {
         "timeperiod": 10
       }
@@ -1556,6 +1686,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "ROCR100",
       "parameters": {
         "timeperiod": 10
       }
@@ -1566,6 +1697,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "RSI",
       "parameters": {
         "timeperiod": 14
       }
@@ -1579,6 +1711,7 @@
           "low"
         ]
       },
+      "name": "SAR",
       "parameters": {
         "acceleration": 0.02,
         "maximum": 0.2
@@ -1593,6 +1726,7 @@
           "low"
         ]
       },
+      "name": "SAREXT",
       "parameters": {
         "accelerationinitlong": 0.02,
         "accelerationinitshort": 0.02,
@@ -1610,6 +1744,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "SIN",
       "parameters": {}
     }
   ],
@@ -1618,6 +1753,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "SINH",
       "parameters": {}
     }
   ],
@@ -1626,6 +1762,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "SMA",
       "parameters": {
         "timeperiod": 30
       }
@@ -1636,6 +1773,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "SQRT",
       "parameters": {}
     }
   ],
@@ -1644,6 +1782,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "STDDEV",
       "parameters": {
         "nbdev": 1,
         "timeperiod": 5
@@ -1659,6 +1798,7 @@
           "close"
         ]
       },
+      "name": "STOCH",
       "parameters": {
         "fastk_period": 5,
         "slowd_matype": 0,
@@ -1677,6 +1817,7 @@
           "close"
         ]
       },
+      "name": "STOCHF",
       "parameters": {
         "fastd_matype": 0,
         "fastd_period": 3,
@@ -1689,6 +1830,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "STOCHRSI",
       "parameters": {
         "fastd_matype": 0,
         "fastd_period": 3,
@@ -1703,6 +1845,7 @@
         "price0": "high",
         "price1": "low"
       },
+      "name": "SUB",
       "parameters": {}
     }
   ],
@@ -1711,6 +1854,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "SUM",
       "parameters": {
         "timeperiod": 30
       }
@@ -1721,6 +1865,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "T3",
       "parameters": {
         "timeperiod": 5,
         "vfactor": 0.7
@@ -1732,6 +1877,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "TAN",
       "parameters": {}
     }
   ],
@@ -1740,6 +1886,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "TANH",
       "parameters": {}
     }
   ],
@@ -1748,6 +1895,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "TEMA",
       "parameters": {
         "timeperiod": 30
       }
@@ -1762,6 +1910,7 @@
           "close"
         ]
       },
+      "name": "TRANGE",
       "parameters": {}
     }
   ],
@@ -1770,6 +1919,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "TRIMA",
       "parameters": {
         "timeperiod": 30
       }
@@ -1780,6 +1930,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "TRIX",
       "parameters": {
         "timeperiod": 30
       }
@@ -1790,6 +1941,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "TSF",
       "parameters": {
         "timeperiod": 14
       }
@@ -1804,6 +1956,7 @@
           "close"
         ]
       },
+      "name": "TYPPRICE",
       "parameters": {}
     }
   ],
@@ -1816,6 +1969,7 @@
           "close"
         ]
       },
+      "name": "ULTOSC",
       "parameters": {
         "timeperiod1": 7,
         "timeperiod2": 14,
@@ -1828,6 +1982,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "VAR",
       "parameters": {
         "nbdev": 1,
         "timeperiod": 5
@@ -1843,6 +1998,7 @@
           "close"
         ]
       },
+      "name": "WCLPRICE",
       "parameters": {}
     }
   ],
@@ -1855,6 +2011,7 @@
           "close"
         ]
       },
+      "name": "WILLR",
       "parameters": {
         "timeperiod": 14
       }
@@ -1865,6 +2022,7 @@
       "input_names": {
         "price": "close"
       },
+      "name": "WMA",
       "parameters": {
         "timeperiod": 30
       }

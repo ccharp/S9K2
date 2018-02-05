@@ -41,6 +41,7 @@ def get_default_config():
         info = ta.Function(name).info
         # There are many keys on info -- we only care about these two
         configs[name] = [{
+            'name' : info['name'],
             'parameters': info['parameters'],
             'input_names': info['input_names']
         }]
@@ -54,7 +55,8 @@ def write_config(name="talib_default.json", config=get_default_config()):
     with open(name, "w+") as f:
         json.dump(config, f, indent=2, sort_keys=True)
 
-def compute_technical_indicator(data, name, config):
+def compute_technical_indicator(data, config):
+    name = config['name']
     ta_func = ta.Function(name)
     params = config['parameters']
     ta_func.parameters = params
@@ -71,7 +73,7 @@ def compute_all_indicators(data, config):
     for indicator_name in config.keys():
         for configuration in config[indicator_name]:
             try:
-                indicator = compute_technical_indicator(data, indicator_name, configuration)
+                indicator = compute_technical_indicator(data, configuration)
                 indicators.append(indicator)
             except Exception as e:
                 print('Error computing indicator "{0}" with config "{1}": {2}'.format(indicator_name, configuration, e))
