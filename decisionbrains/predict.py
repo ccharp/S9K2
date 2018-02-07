@@ -1,99 +1,128 @@
 # %%: Set up environment.
 import os
 import candles
-import talib_wrapper as taw
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from plydata import query
-from plotnine import ggplot, geom_line, geom_point, aes, theme, element_text, ggtitle
-from datetime import datetime, timedelta
+from talib_wrapper import TechnicalAnalysis
 
 cwd = os.getcwd()
 history_path = os.path.abspath(os.path.join(cwd, '..', 'history'))
 db_path = os.path.join(history_path, 'gdax_0.1.db')
 
-# %%: Load minutely candles.
+# %%: Get hourly candles.
 
 minutely_candles = candles.load_minutely_candles(db_path)
-minutely_candles = candles.add_bollinger_bands(minutely_candles, 120)
-print(minutely_candles.head())
-
-# %%: Turn minutely candles into hourly candles.
-
 hourly_candles = candles.agg_to_hourly(minutely_candles)
-hourly_candles = candles.add_bollinger_bands(hourly_candles, 48)
-print(hourly_candles.head())
+hourly_candles.set_index('timestamp', inplace=True)
 
 # %%: Set up features & response variable.
 
-hourly_candles.set_index('timestamp', inplace=True)
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.base import BaseEstimator, TransformerMixin
 
-lags = [hourly_candles]
-for i in range(24):
-    lagged = hourly_candles.copy().shift(i+1)
-    cols = list(hourly_candles.columns)
-    renames = {}
-    for col in cols:
-        renames[col] = col + '_shift' + str(i+1)
-    lags.append(lagged.rename(columns=renames))
+class NoFitMixin():
+    def fit(self, X, y=None):
+        return self
 
-X = pd.concat(lags, axis=1).dropna()
+class Lag(BaseEstimator, NoFitMixin, TransformerMixin):
+    def __init__(self, lookback=24, compute_diffs=True):
+        self.lookback = lookback
+        self.compute_diffs = compute_diffs
+    def transform(self, X, y=None):
+        features = []
+        lags = [X]
+        for i in range(self.lookback):
+            lagged = X.shift(i+1)
+            renames = {col:'{0}_shift{1}'.format(col, i+1) for _,col in enumerate(X.columns)}
+            lags.append(lagged.rename(columns=renames))
+        features.extend(lags)
 
-close_price = X['close']
-X['delta'] = (close_price - close_price.shift()) / close_price
-X.dropna(inplace=True)
-X.head()
+        if self.compute_diffs:
+            diffs = []
+            for curr, prev in zip(lags, lags[1:]):
+                temp = pd.DataFrame()
+                for i in range(len(curr.columns)):
+                    col_name = curr.columns[i] + '_diff_' + prev.columns[i]
+                    temp[col_name] = curr.iloc[:,i] - prev.iloc[:,i]
+                    diffs.append(temp)
+            features.extend(diffs)
+
+        return pd.concat(features, axis=1)
+
+class ComputeTarget(BaseEstimator, NoFitMixin, TransformerMixin):
+    def transform(self, X, y=None):
+        _X = X.copy()
+        close_price = _X['close']
+        _X['target'] = (100.0 * (close_price - close_price.shift()) / close_price).shift(-1)
+        return _X
+
+technical_indicator_pipe = Pipeline([
+    ('compute_target', ComputeTarget()),
+    ('compute_indicators', TechnicalAnalysis('talib_config.json')),
+    ('drop_raw', FunctionTransformer(lambda df: df.drop(['high', 'low', 'open', 'close', 'volume', 'trades'], axis=1), validate=False)),
+    ('lag', Lag(12)),
+    ('drop_na', FunctionTransformer(lambda df: df.dropna(), validate=False))
+])
 
 # %%: Prep data for model.
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVR
-from sklearn.model_selection import RandomizedSearchCV
-from sklearn.metrics import mean_squared_error
 
-temp = X['delta']
-y = np.array(temp).reshape((len(temp), 1))
-X.drop(columns=['delta'], inplace=True)
+indicators = technical_indicator_pipe.transform(hourly_candles)
+
+X = indicators.drop('target', axis=1)
+y = indicators['target']
 
 # Split into train and holdout sets.
 # Train set is used for model selection.
 # Holdout set is used to evaluate final model.
-X_train, X_holdout, y_train, y_holdout = train_test_split(X, y, train_size=0.8, random_state=888)
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, test_size=0.2, random_state=8888)
 
-# Scale predictors and response to be on same scale [0,1] (I think)
-X_scaler = StandardScaler()
-X_train_scaled = X_scaler.fit_transform(X_train)
-X_holdout_scaled = X_scaler.transform(X_holdout)
-
-y_scaler = StandardScaler()
-y_train_scaled = y_scaler.fit_transform(y_train)
-y_holdout_scaled = y_scaler.transform(y_holdout)
-
-param_search_space = {
-    'kernel': ['linear','poly','rbf','sigmoid'],
-    'C': np.logspace(-5,1,7),
-    'epsilon': np.logspace(-6,-1,6)
-}
+# Scale predictors and response
+X_scaler = StandardScaler().fit(X_train)
+X_train_scaled = X_scaler.transform(X_train)
+X_test_scaled = X_scaler.transform(X_test)
 
 # %%: Train model and make predictions.
 
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import mean_squared_error
+
 # Perform model selection using cross-validation.
-model_base = SVR(max_iter=1e6)
-hyperparameter_search = RandomizedSearchCV(model_base,
-                                           param_distributions=param_search_space,
-                                           n_iter=100,
-                                           n_jobs=1,
-                                           random_state=888)
+model_base = Ridge()
+param_search_space = {
+    'alpha': [10**i for i in range(-2,3)]
+}
+
+hyperparameter_search = GridSearchCV(model_base,
+                                     param_grid=param_search_space,
+                                     n_jobs=5,
+                                     cv=3,
+                                     scoring='neg_mean_squared_error')
 
 model = hyperparameter_search
-model.fit(X_train_scaled, y_train_scaled)
+model.fit(X_train_scaled, y_train.ravel())
 
-print(model.best_estimator_)
+# %% Evaluate model predictions.
 
-prediction_holdout = y_scaler.inverse_transform(model.predict(X_holdout_scaled))
+# Show root mean squared error on training data.
+prediction_train = model.predict(X_train_scaled)
+rmse_train = np.sqrt(mean_squared_error(y_train.ravel(), prediction_train))
+print('Train RMSE {0}'.format(rmse_train))
 
-# Show root mean squared error on data the model has never seen.
-rms_holdout = mean_squared_error(y_holdout, prediction_holdout)**(0.5)
-print('Holdout RMS {0}'.format(rms_holdout))
+# Show root mean squared error on test data.
+prediction_test = model.predict(X_test_scaled)
+rmse_test = np.sqrt(mean_squared_error(y_test.ravel(), prediction_test))
+print('Test RMSE {0}'.format(rmse_test))
+
+# Confirm that predictions don't have obvious bias.
+plt.scatter(y_train, prediction_train)
+plt.show()
+
+plt.scatter(y_test, prediction_test)
+plt.show()
+
