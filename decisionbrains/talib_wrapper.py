@@ -9,7 +9,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 # Best examples on usage come from the tests: https://github.com/mrjbq7/ta-lib/blob/master/talib/test_abstract.py
 
 class TechnicalAnalysis(BaseEstimator, TransformerMixin):
-    def __init__(self, config_filepath='talib_default.json'):
+    def __init__(self, config_filepath='talib_config.json'):
         self.config = load_config(config_filepath)
 
     def fit(self, X, y=None):
@@ -56,11 +56,11 @@ def get_default_config():
         }]
     return configs
 
-def load_config(name="talib_default.json"):
+def load_config(name="talib_config.json"):
     with open(name, 'r') as f:
         return json.load(f)
 
-def write_config(name="talib_default.json", config=get_default_config()):
+def write_config(name="talib_config.json", config=get_default_config()):
     with open(name, "w+") as f:
         json.dump(config, f, indent=2, sort_keys=True)
 
