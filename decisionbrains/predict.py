@@ -15,7 +15,6 @@ db_path = os.path.join(history_path, 'gdax_0.1.db')
 
 minutely_candles = candles.load_minutely_candles(db_path)
 hourly_candles = candles.agg_to_hourly(minutely_candles)
-hourly_candles.set_index('timestamp', inplace=True)
 
 # %%: Set up features & response variable.
 
