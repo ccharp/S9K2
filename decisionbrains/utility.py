@@ -1,0 +1,3 @@
+DECISION_LONG = "long"
+DECISION_SHORT = "short"
+DECISION_HODL = "hodl"

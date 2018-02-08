@@ -2,13 +2,11 @@ import sys
 import json
 import predict
 
-DECISION_LONG = "long"
-DECISION_SHORT = "short"
-DECISION_HODL = "hodl"
+import utility as u
+import sma_experiment as sma
 
 def decide():
-    # return (Call to ML stuff here)
-    return DECISION_HODL
+    return sma.decide()
 
 def read_in():
     lines = sys.stdin.readlines()
