@@ -1,5 +1,6 @@
 import sys
 import json
+import predict
 
 DECISION_LONG = "long"
 DECISION_SHORT = "short"

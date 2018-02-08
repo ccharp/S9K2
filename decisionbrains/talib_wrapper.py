@@ -9,14 +9,14 @@ from sklearn.base import BaseEstimator, TransformerMixin
 # Best examples on usage come from the tests: https://github.com/mrjbq7/ta-lib/blob/master/talib/test_abstract.py
 
 class TechnicalAnalysis(BaseEstimator, TransformerMixin):
-    def __init__(self, config_filepath='talib_config.json'):
-        self.config = load_config(config_filepath)
+    def __init__(self, indicator_configs):
+        self.indicator_configs = indicator_configs
 
     def fit(self, X, y=None):
         return self
 
     def transform(self, X, y=None):
-        indicators = self.compute_all_indicators(X)
+        indicators = self.compute_indicators(X)
         return pd.concat([X, indicators], axis=1)
 
     def compute_technical_indicator(self, data, indicator_config):
@@ -32,10 +32,12 @@ class TechnicalAnalysis(BaseEstimator, TransformerMixin):
         indicator.name = indicator_name
         return indicator
 
-    def compute_all_indicators(self, data):
+    def compute_indicators(self, data):
         indicators = []
-        for indicator_name in self.config.keys():
-            for configuration in self.config[indicator_name]:
+        #for indicator_name in self.config.keys():
+        for indicator_name in self.indicator_configs.keys():
+            #for configuration in self.config[indicator_name]:
+            for configuration in self.indicator_configs[indicator_name]:
                 try:
                     indicator = self.compute_technical_indicator(data, configuration)
                     indicators.append(indicator)
@@ -65,28 +67,28 @@ def write_config(name="talib_config.json", config=get_default_config()):
         json.dump(config, f, indent=2, sort_keys=True)
 
 def get_cycle_indicators():
-    return t.get_function_groups()['Cycle Indicators']
+    return set(t.get_function_groups()['Cycle Indicators'])
 
 def get_math_operators():
-    return t.get_function_groups()['Math Operators']
+    return set(t.get_function_groups()['Math Operators'])
 
 def get_math_transforms():
-    return t.get_function_groups()['Math Transform']
+    return set(t.get_function_groups()['Math Transform'])
 
 def get_momentum_indicators():
-    return t.get_function_groups()['Momentum Indicators']
+    return set(t.get_function_groups()['Momentum Indicators'])
 
 def get_overlap_studies():
-    return t.get_function_groups()['Overlap Studies']
+    return set(t.get_function_groups()['Overlap Studies'])
 
 def get_volatility_indicators():
-    return t.get_function_groups()['Volatility Indicators']
+    return set(t.get_function_groups()['Volatility Indicators'])
 
 def get_price_transforms():
-    return t.get_function_groups()['Price Transorm']
+    return set(t.get_function_groups()['Price Transform'])
 
 def get_pattern_recognizers():
-    return t.get_function_groups()['Pattern Recognition']
+    return set(t.get_function_groups()['Pattern Recognition'])
 
 def get_volume_indicators():
-    return t.get_function_groups()['Volume Indicators']
+    return set(t.get_function_groups()['Volume Indicators'])

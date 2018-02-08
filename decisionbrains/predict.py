@@ -4,7 +4,8 @@ import candles
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from talib_wrapper import TechnicalAnalysis
+#from talib_wrapper import TechnicalAnalysis
+import talib_wrapper as taw
 
 cwd = os.getcwd()
 history_path = os.path.abspath(os.path.join(cwd, '..', 'history'))
@@ -58,11 +59,14 @@ class ComputeTarget(BaseEstimator, NoFitMixin, TransformerMixin):
         _X['target'] = (100.0 * (close_price - close_price.shift()) / close_price).shift(-1)
         return _X
 
+taw_groups = taw.get_overlap_studies() #| taw.get_momentum_indicators() | taw.get_price_transforms() | taw.get_volume_indicators()
+taw_configs = {k: v for k, v in taw.load_config().items() if k in taw_groups}
+
 technical_indicator_pipe = Pipeline([
+    ('compute_indicators', taw.TechnicalAnalysis(taw_configs)),
+    #('drop_raw', FunctionTransformer(lambda df: df.drop(['high', 'low', 'open', 'close', 'volume', 'trades'], axis=1), validate=False)),
+    ('lag', Lag(5)),
     ('compute_target', ComputeTarget()),
-    ('compute_indicators', TechnicalAnalysis('talib_config.json')),
-    ('drop_raw', FunctionTransformer(lambda df: df.drop(['high', 'low', 'open', 'close', 'volume', 'trades'], axis=1), validate=False)),
-    ('lag', Lag(12)),
     ('drop_na', FunctionTransformer(lambda df: df.dropna(), validate=False))
 ])
 
@@ -100,7 +104,47 @@ param_search_space = {
 
 hyperparameter_search = GridSearchCV(model_base,
                                      param_grid=param_search_space,
-                                     n_jobs=5,
+                                     #n_jobs=5,
+                                     cv=10,
+                                     scoring='neg_mean_squared_error')
+
+model = hyperparameter_search
+model.fit(X_train_scaled, y_train.ravel())
+
+# %% Evaluate model predictions.
+
+# Show root mean squared error on training data.
+prediction_train = model.predict(X_train_scaled)
+rmse_train = np.sqrt(mean_squared_error(y_train.ravel(), prediction_train))
+print('Train RMSE {0}'.format(rmse_train))
+
+# Show root mean squared error on test data.
+prediction_test = model.predict(X_test_scaled)
+rmse_test = np.sqrt(mean_squared_error(y_test.ravel(), prediction_test))
+print('Test RMSE {0}'.format(rmse_test))
+
+# Confirm that predictions don't have obvious bias.
+plt.scatter(y_train, prediction_train)
+plt.show()
+
+plt.scatter(y_test, prediction_test)
+plt.show()
+
+# %%: Train model and make predictions. OLD OLD OLD OLD
+
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import mean_squared_error
+
+# Perform model selection using cross-validation.
+model_base = Ridge()
+param_search_space = {
+    'alpha': [10**i for i in range(-2,3)]
+}
+
+hyperparameter_search = GridSearchCV(model_base,
+                                     param_grid=param_search_space,
+                                     #n_jobs=5,
                                      cv=3,
                                      scoring='neg_mean_squared_error')
 
