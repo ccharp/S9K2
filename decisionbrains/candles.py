@@ -30,6 +30,19 @@ def agg_to_hourly(candles):
 def agg_to_daily(candles):
     return candles.resample('1D' ).aggregate(agg_dict)
 
+# Takes time-indexed dataframe, returns list of tuples of start and end times of gaps
+# Accepted resolution valeus at bottom of: http://benalexkeen.com/resampling-time-series-data-with-pandas/
+def find_minute_gaps(df):
+    df.index = df.index.astype(np.int64) // 10**9
+    times_arr = df.index.values
+    groups = np.split(times_arr, np.where(np.diff(times_arr) != 60)[0]+1)
+    intervals = []
+    for i in range(len(groups) - 1):
+        start = groups[i][-1]
+        end   = groups[i][0]
+        intervals.append((start, end))
+    return intervals
+
 # Imports data from specific coinbase CSV found here: https://www.kaggle.com/mczielinski/bitcoin-historical-data/data
 # Data before 2015-6-1 is sparse. Date chosen semi-arbitrarily...
 # MAKE BACKUP OF gdax_0.1.db BEFORE USING!
