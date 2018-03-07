@@ -19,34 +19,39 @@ def load_minutely_candles(sqlite_db_path):
     sql_result.index.names = ['timestamp']
     return sql_result.dropna().drop('id', axis=1)
 
-agg_dict = {'high' : max, 'low' : min,
+candle_agg_dict = {'high' : max, 'low' : min,
            'open' : lambda c: c.iloc[0], 'close' : lambda c: c.iloc[-1],
            'volume' : sum, 'trades' : sum}
 
 def agg_to_hourly(candles):
-    return candles.resample('1H' ).aggregate(agg_dict)
+    return candles.resample('1H').aggregate(agg_dict)
 
 
 def agg_to_daily(candles):
-    return candles.resample('1D' ).aggregate(agg_dict)
+    return candles.resample('1D').aggregate(agg_dict)
 
 # Takes time-indexed dataframe, returns list of tuples of start and end times of gaps
-# Accepted resolution valeus at bottom of: http://benalexkeen.com/resampling-time-series-data-with-pandas/
 def find_minute_gaps(df):
+    # Convert to nano seconds since epoch then seconds
     df.index = df.index.astype(np.int64) // 10**9
+
+    # Split into contiguous minutely groups. Gaps result in multiple groups; if no gaps, one group
     times_arr = df.index.values
     groups = np.split(times_arr, np.where(np.diff(times_arr) != 60)[0]+1)
+
+    # The last element in the ith group is the start of the gap
+    # The first element in the ith+1 gap is the end of the gap
     intervals = []
-    for i in range(len(groups) - 1):
+    for i in range(len(groups) - 1): # Only ever need first element of last group
         start = groups[i][-1]
-        end   = groups[i][0]
+        end   = groups[i+1][0]
         intervals.append((start, end))
     return intervals
 
 # Imports data from specific coinbase CSV found here: https://www.kaggle.com/mczielinski/bitcoin-historical-data/data
-# Data before 2015-6-1 is sparse. Date chosen semi-arbitrarily...
 # MAKE BACKUP OF gdax_0.1.db BEFORE USING!
-def import_historical_data(csv="/Users/ccharp/btc-csv/sorted.csv"):
+"""
+def import_historical_data(csv="../history/new_data.csv"):
     names=['timestamp','open','high','low','close','volume','volume_usd','vwp']
     to_datetime = lambda ts: pd.to_datetime(ts, unit='s')
     csv_data = pd.read_csv(csv, sep=',', names=names, parse_dates=[0], index_col=0, date_parser=to_datetime, skiprows=[0])
@@ -57,6 +62,8 @@ def import_historical_data(csv="/Users/ccharp/btc-csv/sorted.csv"):
 
     gekko_data = load_minutely_candles('../history/gdax_0.1.db')
     last_minute = gekko_data.index[0] - pd.Timedelta(minutes=1)
+
+    # Data before 2015-6-1 is sparse. Date chosen semi-arbitrarily...
     truncated = csv_data[pd.datetime(2015,6,1):last_minute]
 
     # Another assumption here: best to keep first of duplicate? Or average (using groupby)?
@@ -72,3 +79,4 @@ def import_historical_data(csv="/Users/ccharp/btc-csv/sorted.csv"):
     db_path = os.path.join(history_path, 'gdax_0.1.db')
     conn = sqlite3.connect(os.path.abspath(db_path))
     truncated.to_sql('candles_USD_BTC', conn, index=True, if_exists='append')
+"""
